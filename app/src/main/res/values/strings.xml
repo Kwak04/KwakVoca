@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">KwakVoca</string>
-    
+    <string name="app_name_upper">KWAKVOCA</string>
+
     <!-- activity_main -->
     <string name="text_my_vocabulary_list">내 단어장</string>
     <string name="content_add_words">단어 추가</string>
