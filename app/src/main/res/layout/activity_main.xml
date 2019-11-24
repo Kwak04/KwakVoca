@@ -29,6 +29,7 @@
             android:layout_weight="1" />
 
         <ImageButton
+            android:id="@+id/btn_add_words"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -38,6 +39,7 @@
             app:srcCompat="@drawable/ic_add_circle_white" />
 
         <ImageButton
+            android:id="@+id/btn_bookmarks"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -48,6 +50,18 @@
             app:srcCompat="@drawable/ic_bookmark_white" />
 
         <ImageButton
+            android:id="@+id/btn_exam"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="7dp"
+            android:background="@color/colorTransparent"
+            android:contentDescription="@string/content_bookmark"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_exam_white" />
+
+        <ImageButton
+            android:id="@+id/btn_settings"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
