@@ -1,4 +1,4 @@
-package com.example.kwakvoca;
+package com.tronix.kwakvoca;
 
 import org.junit.Test;
 
