@@ -2,6 +2,10 @@
     <string name="app_name">KwakVoca</string>
     <string name="app_name_upper">KWAKVOCA</string>
 
+    <!-- Sample strings -->
+    <string name="sample_word">apple</string>
+    <string name="sample_meaning">1. 사과\n2. 바나나\n3. 오렌지</string>
+
     <!-- activity_main -->
     <string name="text_my_vocabulary_list">내 단어장</string>
     <string name="content_add_words">단어 추가</string>
