@@ -48,7 +48,7 @@
             android:background="@color/colorTransparent"
             android:contentDescription="@string/content_bookmark"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_bookmark_white" />
+            app:srcCompat="@drawable/ic_bookmark_action_bar" />
 
         <ImageButton
             android:id="@+id/btn_exam"

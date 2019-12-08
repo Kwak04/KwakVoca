@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
 
-    public WordListAdapter() {
+    WordListAdapter() {
     }
 
     @NonNull
