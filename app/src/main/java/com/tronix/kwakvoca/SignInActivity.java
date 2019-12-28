@@ -103,7 +103,7 @@ public class SignInActivity extends AppCompatActivity {
                             updateUI(currentUser);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(background, "로그에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });
