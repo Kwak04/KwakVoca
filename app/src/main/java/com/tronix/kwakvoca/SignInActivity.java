@@ -36,8 +36,6 @@ public class SignInActivity extends AppCompatActivity {
     final String TAG = "SignInActivity";
     final int RC_SIGN_IN = 1;
 
-    View view;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
