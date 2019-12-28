@@ -10,7 +10,7 @@
     <string name="sample_meaning">1. 사과\n2. 바나나\n3. 오렌지</string>
 
     <!-- activity_sign_in -->
-    <string name="text_login">LOGIN</string>
+    <string name="text_login">로그인</string>
 
     <!-- activity_main -->
     <string name="text_my_vocabulary_list">내 단어장</string>
