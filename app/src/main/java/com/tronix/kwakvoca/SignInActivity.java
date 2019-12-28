@@ -5,10 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,10 +25,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.tronix.kwakvoca.MainActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
+    LinearLayout background;
     SignInButton googleSignInButton;
 
     FirebaseAuth mAuth;
@@ -42,9 +43,9 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        background = findViewById(R.id.layout_background);
         googleSignInButton = findViewById(R.id.btn_sign_in_google);
 
-        view = getWindow().getDecorView();
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -102,7 +103,7 @@ public class SignInActivity extends AppCompatActivity {
                             updateUI(currentUser);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(view, "인증에 실패하였습니다.", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(background, "로그에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -110,8 +111,13 @@ public class SignInActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser == null) {
-            Snackbar.make(getWindow().getDecorView(), "로그인에 실패하였습니다.", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
         } else {
+            SharedPreferences preferences = getSharedPreferences("DATA", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isSignedIn", true);
+            editor.apply();
+
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();

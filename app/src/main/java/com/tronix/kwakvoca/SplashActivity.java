@@ -6,14 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 public class SplashActivity extends AppCompatActivity {
+
+    final String TAG = "SplashActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
@@ -25,9 +27,8 @@ public class SplashActivity extends AppCompatActivity {
         public void run() {
             SharedPreferences preferences = getSharedPreferences("DATA", MODE_PRIVATE);
             boolean isSignedIn = preferences.getBoolean("isSignedIn", false);
+            Log.d(TAG, "isSignedIn=" + isSignedIn);
             startActivity(setActivityToMove(isSignedIn));
-//            final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
             overridePendingTransition(0, R.anim.splash_fade_out);
             SplashActivity.this.finish();
         }
