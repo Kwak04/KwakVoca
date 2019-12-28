@@ -1,12 +1,15 @@
 <resources>
+    <!-- app name -->
     <string name="app_name">KwakVoca</string>
     <string name="app_name_upper">KWAKVOCA</string>
+
+    <!-- ID or something -->
 
     <!-- Sample strings -->
     <string name="sample_word">apple</string>
     <string name="sample_meaning">1. 사과\n2. 바나나\n3. 오렌지</string>
 
-    <!-- activity_login -->
+    <!-- activity_sign_in -->
     <string name="text_login">LOGIN</string>
 
     <!-- activity_main -->
