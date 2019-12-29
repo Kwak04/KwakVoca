@@ -3,10 +3,12 @@ package com.tronix.kwakvoca;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -25,10 +27,10 @@ public class SplashActivity extends AppCompatActivity {
 
     private class SplashHandler implements Runnable {
         public void run() {
-            SharedPreferences preferences = getSharedPreferences("DATA", MODE_PRIVATE);
-            boolean isSignedIn = preferences.getBoolean("isSignedIn", false);
-            Log.d(TAG, "isSignedIn=" + isSignedIn);
-            startActivity(setActivityToMove(isSignedIn));
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = auth.getCurrentUser();
+            startActivity(setActivityToMove(currentUser));
+
             overridePendingTransition(0, R.anim.splash_fade_out);
             SplashActivity.this.finish();
         }
@@ -37,12 +39,15 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() { }
 
-    private Intent setActivityToMove(boolean isSignedIn) {
+    private Intent setActivityToMove(FirebaseUser currentUser) {
         Intent intentSignInActivity = new Intent(getApplicationContext(), SignInActivity.class);
         Intent intentMainActivity = new Intent(getApplicationContext(), MainActivity.class);
-        if (isSignedIn) {
+
+        if (currentUser != null) {
+            Log.d(TAG, "setActivityToMove: currentUser exists. Moving to MainActivity.");
             return intentMainActivity;
         } else {
+            Log.d(TAG, "setActivityToMove: currentUser does not exist. Moving to SignInActivity.");
             return intentSignInActivity;
         }
     }

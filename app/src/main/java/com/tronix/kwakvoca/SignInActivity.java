@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -112,11 +111,6 @@ public class SignInActivity extends AppCompatActivity {
         if (currentUser == null) {
             Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
         } else {
-            SharedPreferences preferences = getSharedPreferences("DATA", MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("isSignedIn", true);
-            editor.apply();
-
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
