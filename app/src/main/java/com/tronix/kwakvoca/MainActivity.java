@@ -32,21 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
-        //
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
-        updateUI(currentUser);
-        Log.d(TAG, "onCreate: currentUser=" + currentUser);
 
         // Word list
         wordList.setLayoutManager(new LinearLayoutManager(this));
         wordList.setHasFixedSize(true);
         wordList.setAdapter(new WordListAdapter());
-    }
-
-    private void updateUI(FirebaseUser currentUser) {
-        if (currentUser == null) {
-            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
-        }
     }
 }
