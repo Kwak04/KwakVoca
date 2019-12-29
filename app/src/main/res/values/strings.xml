@@ -17,4 +17,10 @@
     <string name="content_add_words">단어 추가</string>
     <string name="content_bookmark">북마크</string>
     <string name="content_settings">설정</string>
+
+    <!-- activity_add_words -->
+    <string name="text_add_words">단어 추가</string>
+    <string name="content_done">완료</string>
+    <string name="hint_word">단어</string>
+    <string name="hint_meaning">뜻</string>
 </resources>
