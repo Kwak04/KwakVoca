@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout background;
     RecyclerView wordList;
+    ImageButton addWords;
 
     final String TAG = "MainActivity";
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         background = findViewById(R.id.layout_background);
         wordList = findViewById(R.id.word_list);
+        addWords = findViewById(R.id.btn_add_words);
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
@@ -39,5 +42,14 @@ public class MainActivity extends AppCompatActivity {
         wordList.setLayoutManager(new LinearLayoutManager(this));
         wordList.setHasFixedSize(true);
         wordList.setAdapter(new WordListAdapter());
+
+        // Button - Add words
+        addWords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
