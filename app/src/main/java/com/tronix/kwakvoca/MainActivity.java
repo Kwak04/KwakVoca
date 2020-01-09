@@ -59,10 +59,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == ActivityCodes.RESULT_ADDED_WORD) {
-            Snackbar.make(background, "단어를 추가했습니다.", Snackbar.LENGTH_SHORT).show();
-        } else if (resultCode == ActivityCodes.RESULT_FAILED_ADDING_WORD) {
-            Snackbar.make(background, "단어를 추가하지 못했습니다.", Snackbar.LENGTH_SHORT).show();
+        if (requestCode == ActivityCodes.REQUEST_ADD_WORD) {  // AddWordsActivity
+            if (resultCode == ActivityCodes.RESULT_ADDED_WORD) {
+                Snackbar.make(background, "단어를 추가했습니다.", Snackbar.LENGTH_SHORT).show();
+            } else if (resultCode == ActivityCodes.RESULT_FAILED_ADDING_WORD) {
+                Snackbar.make(background, "단어를 추가하지 못했습니다.", Snackbar.LENGTH_SHORT).show();
+            }
         }
     }
 }

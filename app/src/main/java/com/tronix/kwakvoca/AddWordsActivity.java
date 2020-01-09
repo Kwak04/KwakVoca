@@ -61,6 +61,7 @@ public class AddWordsActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 Log.d(TAG, "Adding words completed.");
                                 setResult(ActivityCodes.RESULT_ADDED_WORD);
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -68,10 +69,9 @@ public class AddWordsActivity extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 Log.w(TAG, "Adding words failed", e);
                                 setResult(ActivityCodes.RESULT_FAILED_ADDING_WORD);
+                                finish();
                             }
                         });
-
-                finish();
             }
         });
     }
