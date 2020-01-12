@@ -54,6 +54,7 @@ public class AddWordsActivity extends AppCompatActivity {
                 wordData.meaning = meaning.getText().toString();
                 wordData.user = currentUser.getEmail();
                 wordData.group = "my group";  // Group feature will be added.
+                wordData.uid = currentUser.getUid();
 
                 reference.document().set(wordData)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
