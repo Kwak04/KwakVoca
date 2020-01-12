@@ -5,6 +5,7 @@ public class WordData {
     String meaning;
     String user;
     String group;
+    String uid;
 
     public String getWord() {
         return word;
@@ -20,5 +21,9 @@ public class WordData {
 
     public String getGroup() {
         return group;
+    }
+
+    public String getUid() {
+        return uid;
     }
 }
