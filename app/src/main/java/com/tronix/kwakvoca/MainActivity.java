@@ -2,6 +2,7 @@ package com.tronix.kwakvoca;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -14,6 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseUser currentUser;
+
+    FirebaseFirestore db;
+    CollectionReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +53,46 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
 
+        db = FirebaseFirestore.getInstance();
+        reference = db.collection("words");
+
+
         // Word list
+
         wordList.setLayoutManager(new LinearLayoutManager(this));
         wordList.setHasFixedSize(true);
-        wordList.setAdapter(new WordListAdapter());
+
+        reference.whereEqualTo("uid", currentUser.getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Failed to get words", e);
+                            Snackbar.make(background, "단어를 불러오지 못했습니다.", Snackbar.LENGTH_LONG);
+                        }
+
+                        WordData wordData = new WordData();
+                        List<WordData> wordDataList = new ArrayList<>();
+
+                        if (snapshot != null) {
+                            for (QueryDocumentSnapshot doc : snapshot) {
+                                if (doc.get("word") != null) {
+                                    Log.d(TAG, "word: " + doc.getString("word"));
+                                    wordData.word = doc.getString("word");
+                                }
+                                if (doc.get("meaning") != null) {
+                                    wordData.meaning = doc.getString("meaning");
+                                }
+                                wordDataList.add(wordData);
+                            }
+                        }
+
+                        // FIXME: Same words(wordData) are added in wordDataList
+                        Log.d(TAG, "Current words: " + wordDataList);
+                        wordList.setAdapter(new WordListAdapter(wordDataList));
+                    }
+                });
+
 
         // Button - Add words
         addWords.setOnClickListener(new View.OnClickListener() {

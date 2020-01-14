@@ -4,13 +4,18 @@ package com.tronix.kwakvoca;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
+import java.util.List;
 
-    WordListAdapter() {
+public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
+    private List<WordData> wordDataList;
+
+    WordListAdapter(List<WordData> wordDataList) {
+        this.wordDataList = wordDataList;
     }
 
     @NonNull
@@ -23,17 +28,26 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull WordListAdapter.ViewHolder holder, int position) {
+        String word = wordDataList.get(position).word;
+        String meaning = wordDataList.get(position).meaning;
 
+        holder.word.setText(word);
+        holder.meaning.setText(meaning);
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return wordDataList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        TextView word, meaning;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            word = itemView.findViewById(R.id.tv_word);
+            meaning = itemView.findViewById(R.id.tv_meaning);
         }
     }
 }
