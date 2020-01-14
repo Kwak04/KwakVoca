@@ -23,6 +23,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -82,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
                                 wordData.meaning = doc.getString("meaning");
 
                                 wordDataList.add(wordData);
+
+                                // Sort words in abc order
+                                Collections.sort(wordDataList, new Comparator<WordData>() {
+                                    @Override
+                                    public int compare(WordData o1, WordData o2) {
+                                        return Integer.compare(o1.word.compareTo(o2.word), 0);
+                                    }
+                                });
+
                                 wordList.setAdapter(new WordListAdapter(wordDataList));
                             }
                         }
