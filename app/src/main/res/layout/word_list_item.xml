@@ -5,9 +5,9 @@
     android:layout_marginStart="20dp"
     android:layout_marginTop="5dp"
     android:layout_marginEnd="30dp"
-    android:orientation="vertical"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/word_list_rounded_rectangle">
+    android:background="@drawable/word_list_rounded_rectangle"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         android:layout_marginBottom="5dp">
 
         <TextView
+            android:id="@+id/tv_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_square_round_extra_bold"
@@ -38,6 +39,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_meaning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
