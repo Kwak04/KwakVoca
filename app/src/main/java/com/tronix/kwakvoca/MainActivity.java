@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         wordList.setLayoutManager(new LinearLayoutManager(this));
         wordList.setHasFixedSize(true);
 
-        reference.whereEqualTo("uid", currentUser.getUid())
+        reference.whereEqualTo("uid", currentUser.getUid())  // Get words from documents where uid is same with user's one
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException e) {
@@ -96,9 +96,6 @@ public class MainActivity extends AppCompatActivity {
                                 wordList.setAdapter(new WordListAdapter(wordDataList));
                             }
                         }
-
-                        Log.d(TAG, "Current words: " + wordDataList);
-                        wordList.setAdapter(new WordListAdapter(wordDataList));
                     }
                 });
 
