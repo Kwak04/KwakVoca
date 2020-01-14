@@ -71,23 +71,21 @@ public class MainActivity extends AppCompatActivity {
                             Snackbar.make(background, "단어를 불러오지 못했습니다.", Snackbar.LENGTH_LONG);
                         }
 
-                        WordData wordData = new WordData();
                         List<WordData> wordDataList = new ArrayList<>();
 
                         if (snapshot != null) {
                             for (QueryDocumentSnapshot doc : snapshot) {
-                                if (doc.get("word") != null) {
-                                    Log.d(TAG, "word: " + doc.getString("word"));
-                                    wordData.word = doc.getString("word");
-                                }
-                                if (doc.get("meaning") != null) {
-                                    wordData.meaning = doc.getString("meaning");
-                                }
+                                Log.d(TAG, "word: " + doc.getString("word") + "  meaning: " + doc.getString("meaning"));
+
+                                WordData wordData = new WordData();
+                                wordData.word = doc.getString("word");
+                                wordData.meaning = doc.getString("meaning");
+
                                 wordDataList.add(wordData);
+                                wordList.setAdapter(new WordListAdapter(wordDataList));
                             }
                         }
 
-                        // FIXME: Same words(wordData) are added in wordDataList
                         Log.d(TAG, "Current words: " + wordDataList);
                         wordList.setAdapter(new WordListAdapter(wordDataList));
                     }
