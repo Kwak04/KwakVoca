@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -21,6 +23,7 @@ public class AddWordsActivity extends AppCompatActivity {
 
     final String TAG = "AddWordsActivity";
 
+    LinearLayout background;
     ImageButton done;
     EditText word, meaning;
 
@@ -31,10 +34,11 @@ public class AddWordsActivity extends AppCompatActivity {
     FirebaseUser currentUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_words);
 
+        background = findViewById(R.id.layout_background);
         done = findViewById(R.id.btn_done);
         word = findViewById(R.id.edit_word);
         meaning = findViewById(R.id.edit_meaning);
@@ -50,29 +54,45 @@ public class AddWordsActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                // Prevent from adding data with no word
+                boolean isTyped = false;
+                boolean isWordBlank = word.getText().toString().equals("");
+                boolean isMeaningBlank = meaning.getText().toString().equals("");
+                if (isWordBlank && isMeaningBlank) {
+                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_word_and_meaning), Snackbar.LENGTH_LONG).show();
+                } else if (isWordBlank) {
+                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_word), Snackbar.LENGTH_LONG).show();
+                } else if (isMeaningBlank) {
+                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_meaning), Snackbar.LENGTH_LONG).show();
+                } else {  // Word and meaning are typed
+                    isTyped = true;
+                }
+
                 wordData.word = word.getText().toString();
                 wordData.meaning = meaning.getText().toString();
                 wordData.user = currentUser.getEmail();
                 wordData.group = "my group";  // Group feature will be added.
                 wordData.uid = currentUser.getUid();
 
-                reference.document().set(wordData)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Log.d(TAG, "Adding words completed.");
-                                setResult(ActivityCodes.RESULT_ADDED_WORD);
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Adding words failed", e);
-                                setResult(ActivityCodes.RESULT_FAILED_ADDING_WORD);
-                                finish();
-                            }
-                        });
+                if (isTyped) {
+                    reference.document().set(wordData)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d(TAG, "Adding words completed.");
+                                    setResult(ActivityCodes.RESULT_ADDED_WORD);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Adding words failed", e);
+                                    setResult(ActivityCodes.RESULT_FAILED_ADDING_WORD);
+                                    finish();
+                                }
+                            });
+                }
             }
         });
     }
