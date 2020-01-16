@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                                 WordData wordData = new WordData();
                                 wordData.word = doc.getString("word");
                                 wordData.meaning = doc.getString("meaning");
+                                wordData.documentId = doc.getId();
 
                                 wordDataList.add(wordData);
 

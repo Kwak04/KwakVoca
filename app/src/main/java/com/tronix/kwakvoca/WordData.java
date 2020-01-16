@@ -6,6 +6,7 @@ public class WordData {
     String user;
     String group;
     String uid;
+    String documentId;
 
     public String getWord() {
         return word;

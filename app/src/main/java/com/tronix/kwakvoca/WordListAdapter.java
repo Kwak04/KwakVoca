@@ -1,9 +1,11 @@
 package com.tronix.kwakvoca;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,11 +30,20 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull WordListAdapter.ViewHolder holder, int position) {
-        String word = wordDataList.get(position).word;
-        String meaning = wordDataList.get(position).meaning;
+        final String word = wordDataList.get(position).word;
+        final String meaning = wordDataList.get(position).meaning;
+        final String documentId = wordDataList.get(position).documentId;
 
         holder.word.setText(word);
         holder.meaning.setText(meaning);
+
+        holder.background.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d("WordListAdapter", "onLongClick: clicked item=" + word + "  document id=" + documentId);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -41,11 +52,13 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout background;
         TextView word, meaning;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            background = itemView.findViewById(R.id.layout_item);
             word = itemView.findViewById(R.id.tv_word);
             meaning = itemView.findViewById(R.id.tv_meaning);
         }
