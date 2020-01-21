@@ -18,6 +18,12 @@
     <string name="content_bookmark">북마크</string>
     <string name="content_settings">설정</string>
 
+    <!-- delete_word_dialog -->
+    <string name="title_delete_word">단어 삭제</string>
+    <string name="text_delete_word">단어를 삭제하시겠습니까?</string>
+    <string name="action_delete_world">삭제</string>
+    <string name="action_cancel">취소</string>
+
     <!-- activity_add_words -->
     <string name="text_add_words">단어 추가</string>
     <string name="content_done">완료</string>

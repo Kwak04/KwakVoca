@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                wordList.setAdapter(new WordListAdapter(wordDataList));
+                                wordList.setAdapter(new WordListAdapter(wordDataList, MainActivity.this));
                             }
                         }
                     }

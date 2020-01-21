@@ -1,6 +1,7 @@
 package com.tronix.kwakvoca;
 
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
-    private List<WordData> wordDataList;
 
-    WordListAdapter(List<WordData> wordDataList) {
+    private List<WordData> wordDataList;
+    private Context applicationContext;
+
+    WordListAdapter(List<WordData> wordDataList, Context applicationContext) {
         this.wordDataList = wordDataList;
+        this.applicationContext = applicationContext;
     }
 
     @NonNull
@@ -41,6 +45,10 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             @Override
             public boolean onLongClick(View v) {
                 Log.d("WordListAdapter", "onLongClick: clicked item=" + word + "  document id=" + documentId);
+
+                DeleteWordDialog deleteWordDialog = new DeleteWordDialog(applicationContext);
+                deleteWordDialog.show();
+
                 return true;
             }
         });
