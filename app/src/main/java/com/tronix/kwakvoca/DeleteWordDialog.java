@@ -36,6 +36,10 @@ class DeleteWordDialog {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
+        // Set dialog title
+        TextView wordView = dialog.findViewById(R.id.tv_word);
+        wordView.setText(word);
+
         // Buttons
         TextView cancel = dialog.findViewById(R.id.btn_cancel);
         TextView delete = dialog.findViewById(R.id.btn_delete);
