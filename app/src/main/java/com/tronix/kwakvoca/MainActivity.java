@@ -6,12 +6,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                wordList.setAdapter(new WordListAdapter(wordDataList, MainActivity.this));
+                                wordList.setAdapter(new WordListAdapter(wordDataList, MainActivity.this, background));
                             }
                         }
                     }
@@ -122,5 +126,28 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(background, "단어를 추가하지 못했습니다.", Snackbar.LENGTH_SHORT).show();
             }
         }
+    }
+
+    // DeleteWordDialog will call this function
+    public void deleteWord(String documentId, final LinearLayout background) {
+        Log.d(TAG, "deleteWord: document id=" + documentId);
+
+        db = FirebaseFirestore.getInstance();
+        reference = db.collection("words");
+
+        reference.document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Snackbar.make(background, R.string.result_delete_word, Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting word document", e);
+                    }
+                });
     }
 }

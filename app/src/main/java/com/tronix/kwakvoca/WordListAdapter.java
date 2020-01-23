@@ -18,10 +18,12 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     private List<WordData> wordDataList;
     private Context applicationContext;
+    private LinearLayout background;
 
-    WordListAdapter(List<WordData> wordDataList, Context applicationContext) {
+    WordListAdapter(List<WordData> wordDataList, Context applicationContext, LinearLayout background) {
         this.wordDataList = wordDataList;
         this.applicationContext = applicationContext;
+        this.background = background;
     }
 
     @NonNull
@@ -46,7 +48,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             public boolean onLongClick(View v) {
                 Log.d("WordListAdapter", "onLongClick: clicked item=" + word + "  document id=" + documentId);
 
-                DeleteWordDialog deleteWordDialog = new DeleteWordDialog(applicationContext);
+                DeleteWordDialog deleteWordDialog = new DeleteWordDialog(applicationContext, background, word, documentId);
                 deleteWordDialog.show();
 
                 return true;
