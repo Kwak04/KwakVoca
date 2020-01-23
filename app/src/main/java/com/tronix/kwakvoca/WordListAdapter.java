@@ -1,9 +1,12 @@
 package com.tronix.kwakvoca;
 
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,10 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
-    private List<WordData> wordDataList;
 
-    WordListAdapter(List<WordData> wordDataList) {
+    private List<WordData> wordDataList;
+    private Context applicationContext;
+    private LinearLayout background;
+
+    WordListAdapter(List<WordData> wordDataList, Context applicationContext, LinearLayout background) {
         this.wordDataList = wordDataList;
+        this.applicationContext = applicationContext;
+        this.background = background;
     }
 
     @NonNull
@@ -28,11 +36,24 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull WordListAdapter.ViewHolder holder, int position) {
-        String word = wordDataList.get(position).word;
-        String meaning = wordDataList.get(position).meaning;
+        final String word = wordDataList.get(position).word;
+        final String meaning = wordDataList.get(position).meaning;
+        final String documentId = wordDataList.get(position).documentId;
 
         holder.word.setText(word);
         holder.meaning.setText(meaning);
+
+        holder.background.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d("WordListAdapter", "onLongClick: clicked item=" + word + "  document id=" + documentId);
+
+                DeleteWordDialog deleteWordDialog = new DeleteWordDialog(applicationContext, background, word, documentId);
+                deleteWordDialog.show();
+
+                return true;
+            }
+        });
     }
 
     @Override
@@ -41,11 +62,13 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout background;
         TextView word, meaning;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            background = itemView.findViewById(R.id.layout_item);
             word = itemView.findViewById(R.id.tv_word);
             meaning = itemView.findViewById(R.id.tv_meaning);
         }
