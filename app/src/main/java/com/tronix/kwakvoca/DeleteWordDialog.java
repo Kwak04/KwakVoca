@@ -32,9 +32,9 @@ class DeleteWordDialog {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.delete_word_dialog);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
+        dialog.show();  // Show the dialog
 
-        // Set dialog title
+        // Set dialog's title as a selected word
         TextView wordView = dialog.findViewById(R.id.tv_word);
         wordView.setText(data.word);
 

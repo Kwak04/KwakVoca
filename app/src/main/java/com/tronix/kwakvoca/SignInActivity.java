@@ -64,11 +64,10 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    // Google sign in Intent result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN) {  // Google sign in Intent result
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
@@ -108,9 +107,9 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser currentUser) {
-        if (currentUser == null) {
+        if (currentUser == null) {  // if signing in was canceled or failed
             Snackbar.make(background, R.string.error_login, Snackbar.LENGTH_LONG).show();
-        } else {
+        } else {  // if signing in was successful, move to MainActivity
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();

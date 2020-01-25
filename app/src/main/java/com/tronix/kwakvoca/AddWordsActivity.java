@@ -64,6 +64,7 @@ public class AddWordsActivity extends AppCompatActivity {
                     isTyped = true;
                 }
 
+                // Adding word information to data
                 wordData.word = word.getText().toString();
                 wordData.meaning = meaning.getText().toString();
                 wordData.user = currentUser.getEmail();
@@ -80,7 +81,10 @@ public class AddWordsActivity extends AppCompatActivity {
     public void finishActivityWithData() {
         Intent wordDataIntent = new Intent();
         Gson gson = new GsonBuilder().create();
+
+        // Convert WordData to Json String
         String stringWordData = gson.toJson(wordData, WordData.class);
+
         wordDataIntent.putExtra("wordData", stringWordData);
         setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
         finish();

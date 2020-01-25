@@ -128,7 +128,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == ActivityCodes.RESULT_ADD_WORD) {
                 String stringWordData = Objects.requireNonNull(data).getStringExtra("wordData");
                 Gson gson = new GsonBuilder().create();
+
+                // Put String back to WordData
                 WordData wordData = gson.fromJson(stringWordData, WordData.class);
+
                 addWord(wordData, background);
             }
         }
