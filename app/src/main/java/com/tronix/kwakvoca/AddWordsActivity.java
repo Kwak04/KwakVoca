@@ -33,6 +33,8 @@ public class AddWordsActivity extends AppCompatActivity {
 
     FirebaseUser currentUser;
 
+    LinearLayout mainActivityBackground;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class AddWordsActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                // Prevent from adding data with no word
+                // Prevent from adding document with no word data
                 boolean isTyped = false;
                 boolean isWordBlank = word.getText().toString().equals("");
                 boolean isMeaningBlank = meaning.getText().toString().equals("");
@@ -75,25 +77,15 @@ public class AddWordsActivity extends AppCompatActivity {
                 wordData.uid = currentUser.getUid();
 
                 if (isTyped) {
-                    reference.document().set(wordData)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d(TAG, "Adding words completed.");
-                                    setResult(ActivityCodes.RESULT_ADDED_WORD);
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Adding words failed", e);
-                                    setResult(ActivityCodes.RESULT_FAILED_ADDING_WORD);
-                                    finish();
-                                }
-                            });
+                    finish();
+                    MainActivity mainActivity = new MainActivity();
+                    mainActivity.addWord(wordData);
                 }
             }
         });
+    }
+
+    public void setMainActivityBackground(LinearLayout background) {
+        mainActivityBackground = background;
     }
 }

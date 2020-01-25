@@ -113,23 +113,39 @@ public class MainActivity extends AppCompatActivity {
         addWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Send background to show Snackbar
+                AddWordsActivity addWordsActivity = new AddWordsActivity();
+                addWordsActivity.setMainActivityBackground(background);
                 Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
-                startActivityForResult(intent, ActivityCodes.REQUEST_ADD_WORD);
+                startActivity(intent);
+
+
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ActivityCodes.REQUEST_ADD_WORD) {  // AddWordsActivity
-            if (resultCode == ActivityCodes.RESULT_ADDED_WORD) {
-                Snackbar.make(background, "단어를 추가했습니다.", Snackbar.LENGTH_SHORT).show();
-            } else if (resultCode == ActivityCodes.RESULT_FAILED_ADDING_WORD) {
-                Snackbar.make(background, "단어를 추가하지 못했습니다.", Snackbar.LENGTH_SHORT).show();
-            }
-        }
+    // AddWordsActivity will call this function
+    public void addWord(final WordData data) {
+        db = FirebaseFirestore.getInstance();
+        reference = db.collection("words");
+
+        reference.document()
+                .set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Word successfully added. word=" + data.word);
+//                        Snackbar.make(background, R.string.result_add_word, Snackbar.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error adding word", e);
+//                        Snackbar.make(background, R.string.result_failed_add_word, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     // DeleteWordDialog will call this function
