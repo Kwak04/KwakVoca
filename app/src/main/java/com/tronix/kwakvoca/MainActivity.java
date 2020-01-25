@@ -114,9 +114,6 @@ public class MainActivity extends AppCompatActivity {
         addWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Send background to show Snackbar
-                AddWordsActivity addWordsActivity = new AddWordsActivity();
-                addWordsActivity.setMainActivityBackground(background);
                 Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
                 startActivityForResult(intent, ActivityCodes.REQUEST_ADD_WORD);
             }

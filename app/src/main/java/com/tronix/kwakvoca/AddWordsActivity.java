@@ -19,8 +19,6 @@ import com.google.gson.GsonBuilder;
 
 public class AddWordsActivity extends AppCompatActivity {
 
-    final String TAG = "AddWordsActivity";
-
     LinearLayout background;
     ImageButton done;
     EditText word, meaning;
@@ -30,8 +28,6 @@ public class AddWordsActivity extends AppCompatActivity {
     WordData wordData;
 
     FirebaseUser currentUser;
-
-    LinearLayout mainActivityBackground;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -84,9 +80,5 @@ public class AddWordsActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void setMainActivityBackground(LinearLayout background) {
-        mainActivityBackground = background;
     }
 }
