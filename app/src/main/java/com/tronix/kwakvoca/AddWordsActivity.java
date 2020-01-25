@@ -71,14 +71,18 @@ public class AddWordsActivity extends AppCompatActivity {
                 wordData.uid = currentUser.getUid();
 
                 if (isTyped) {
-                    Intent wordDataIntent = new Intent();
-                    Gson gson = new GsonBuilder().create();
-                    String stringWordData = gson.toJson(wordData, WordData.class);
-                    wordDataIntent.putExtra("wordData", stringWordData);
-                    setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
-                    finish();
+                    finishActivityWithData();
                 }
             }
         });
+    }
+
+    public void finishActivityWithData() {
+        Intent wordDataIntent = new Intent();
+        Gson gson = new GsonBuilder().create();
+        String stringWordData = gson.toJson(wordData, WordData.class);
+        wordDataIntent.putExtra("wordData", stringWordData);
+        setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
+        finish();
     }
 }
