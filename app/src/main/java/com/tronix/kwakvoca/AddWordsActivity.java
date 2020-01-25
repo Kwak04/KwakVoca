@@ -1,23 +1,21 @@
 package com.tronix.kwakvoca;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class AddWordsActivity extends AppCompatActivity {
 
@@ -77,9 +75,12 @@ public class AddWordsActivity extends AppCompatActivity {
                 wordData.uid = currentUser.getUid();
 
                 if (isTyped) {
+                    Intent wordDataIntent = new Intent();
+                    Gson gson = new GsonBuilder().create();
+                    String stringWordData = gson.toJson(wordData, WordData.class);
+                    wordDataIntent.putExtra("wordData", stringWordData);
+                    setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
                     finish();
-                    MainActivity mainActivity = new MainActivity();
-                    mainActivity.addWord(wordData);
                 }
             }
         });
