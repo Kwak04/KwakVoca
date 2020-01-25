@@ -55,11 +55,11 @@ public class AddWordsActivity extends AppCompatActivity {
                 boolean isWordBlank = word.getText().toString().equals("");
                 boolean isMeaningBlank = meaning.getText().toString().equals("");
                 if (isWordBlank && isMeaningBlank) {
-                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_word_and_meaning), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(background, R.string.error_type_word_and_meaning, Snackbar.LENGTH_LONG).show();
                 } else if (isWordBlank) {
-                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_word), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(background, R.string.error_type_word, Snackbar.LENGTH_LONG).show();
                 } else if (isMeaningBlank) {
-                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_meaning), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(background, R.string.error_type_meaning, Snackbar.LENGTH_LONG).show();
                 } else {  // Word and meaning are typed
                     isTyped = true;
                 }

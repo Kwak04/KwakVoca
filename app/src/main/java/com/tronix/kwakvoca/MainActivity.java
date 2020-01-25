@@ -137,8 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
     // AddWordsActivity will call this function
     public void addWord(final WordData data, final LinearLayout background) {
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("words");
+        reference = FirebaseFirestore.getInstance().collection("words");
 
         reference.document()
                 .set(data)
@@ -162,8 +161,7 @@ public class MainActivity extends AppCompatActivity {
     public void deleteWord(final WordData data, final LinearLayout background) {
         Log.d(TAG, "deleteWord: document id=" + data.documentId);
 
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("words");
+        reference = FirebaseFirestore.getInstance().collection("words");
 
         reference.document(data.documentId)
                 .delete()
@@ -190,8 +188,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void restoreWord(WordData data, final LinearLayout background) {
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("words");
+        reference = FirebaseFirestore.getInstance().collection("words");
 
         reference.document(data.documentId)
                 .set(data)
