@@ -18,7 +18,7 @@
             style="@style/TitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_my_vocabulary_list" />
+            android:text="@string/text_main_group_name" />
 
         <View
             android:layout_width="0dp"
@@ -31,7 +31,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:background="@color/colorTransparent"
-            android:contentDescription="@string/content_add_words"
+            android:contentDescription="@string/action_main_add_words"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_add_circle_white" />
 
@@ -42,7 +42,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="7dp"
             android:background="@color/colorTransparent"
-            android:contentDescription="@string/content_bookmark"
+            android:contentDescription="@string/action_main_show_bookmark"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_bookmark_action_bar" />
 
@@ -53,7 +53,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="7dp"
             android:background="@color/colorTransparent"
-            android:contentDescription="@string/content_bookmark"
+            android:contentDescription="@string/action_main_show_bookmark"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_exam_white" />
 
@@ -64,7 +64,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="7dp"
             android:background="@color/colorTransparent"
-            android:contentDescription="@string/content_settings"
+            android:contentDescription="@string/action_main_go_settings"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_settings_white" />
 

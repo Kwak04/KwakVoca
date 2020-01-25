@@ -145,14 +145,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "Word successfully added. word=" + data.word);
-                        Snackbar.make(background, R.string.result_add_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background, R.string.result_main_added_word, Snackbar.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "Error adding word", e);
-                        Snackbar.make(background, R.string.result_failed_add_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background, R.string.error_main_adding_word, Snackbar.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -168,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Snackbar.make(background, R.string.result_delete_word, Snackbar.LENGTH_LONG)
-                                .setAction(R.string.action_restore_word, new View.OnClickListener() {
+                        Snackbar.make(background, R.string.result_main_deleted_word, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.action_main_restore_word, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         Log.d(TAG, "Snackbar: Restore button clicked");
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Snackbar.make(background, R.string.result_restore_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background, R.string.result_main_restored_word, Snackbar.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

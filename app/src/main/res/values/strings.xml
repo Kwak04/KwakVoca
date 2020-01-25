@@ -3,37 +3,38 @@
     <string name="app_name">KwakVoca</string>
     <string name="app_name_upper">KWAKVOCA</string>
 
-    <!-- ID or something -->
-
     <!-- Sample strings -->
     <string name="sample_word">apple</string>
     <string name="sample_meaning">1. 사과\n2. 바나나\n3. 오렌지</string>
 
+    <!-- Actions -->
+    <string name="action_cancel">취소</string>
+    <string name="action_delete_world">삭제</string>
+    <string name="action_done">완료</string>
+
     <!-- activity_sign_in -->
     <string name="text_login">로그인</string>
+    <string name="error_login">로그인에 실패하였습니다.</string>
 
     <!-- activity_main -->
-    <string name="text_my_vocabulary_list">내 단어장</string>
-    <string name="content_add_words">단어 추가</string>
-    <string name="content_bookmark">북마크</string>
-    <string name="content_settings">설정</string>
-    <string name="result_add_word">단어가 추가되었습니다.</string>
-    <string name="result_failed_add_word">단어가 추가되지 못했습니다.</string>
-    <string name="result_delete_word">단어가 삭제되었습니다.</string>
-    <string name="action_restore_word">복원</string>
-    <string name="result_restore_word">단어가 복원되었습니다.</string>
+    <string name="text_main_group_name">내 단어장</string>
+    <string name="action_main_add_words">단어 추가하기</string>
+    <string name="action_main_show_bookmark">북마크 보기</string>
+    <string name="action_main_go_settings">설정 화면 가기</string>
+    <string name="action_main_restore_word">복원</string>
+    <string name="result_main_added_word">단어가 추가되었습니다.</string>
+    <string name="result_main_deleted_word">단어가 삭제되었습니다.</string>
+    <string name="result_main_restored_word">단어가 복원되었습니다.</string>
+    <string name="error_main_adding_word">단어가 추가되지 못했습니다.</string>
 
     <!-- delete_word_dialog -->
-    <string name="title_delete_word">단어 삭제</string>
-    <string name="text_delete_word">단어를 삭제하시겠습니까?</string>
-    <string name="action_delete_world">삭제</string>
-    <string name="action_cancel">취소</string>
+    <string name="title_dialog_delete_word">단어 삭제</string>
+    <string name="warning_delete_word">단어를 삭제하시겠습니까?</string>
 
     <!-- activity_add_words -->
-    <string name="text_add_words">단어 추가</string>
-    <string name="content_done">완료</string>
-    <string name="hint_word">단어</string>
-    <string name="hint_meaning">뜻</string>
+    <string name="title_add_words">단어 추가</string>
+    <string name="hint_add_words_word">단어</string>
+    <string name="hint_add_words_meaning">뜻</string>
     <string name="error_type_word">단어를 입력하세요.</string>
     <string name="error_type_meaning">단어의 뜻을 입력하세요.</string>
     <string name="error_type_word_and_meaning">단어와 단어의 뜻을 입력하세요.</string>

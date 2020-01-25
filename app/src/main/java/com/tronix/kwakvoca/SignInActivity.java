@@ -1,14 +1,14 @@
 package com.tronix.kwakvoca;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -83,7 +83,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(background, R.string.error_login, Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -101,7 +101,7 @@ public class SignInActivity extends AppCompatActivity {
                             updateUI(currentUser);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(background, R.string.error_login, Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -109,7 +109,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser == null) {
-            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(background, R.string.error_login, Snackbar.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
