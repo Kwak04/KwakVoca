@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,12 +24,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -113,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
         addWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Send background to show Snackbar
+                AddWordsActivity addWordsActivity = new AddWordsActivity();
+                addWordsActivity.setMainActivityBackground(background);
                 Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
                 startActivityForResult(intent, ActivityCodes.REQUEST_ADD_WORD);
             }
@@ -124,12 +128,37 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ActivityCodes.REQUEST_ADD_WORD) {  // AddWordsActivity
-            if (resultCode == ActivityCodes.RESULT_ADDED_WORD) {
-                Snackbar.make(background, "단어를 추가했습니다.", Snackbar.LENGTH_SHORT).show();
-            } else if (resultCode == ActivityCodes.RESULT_FAILED_ADDING_WORD) {
-                Snackbar.make(background, "단어를 추가하지 못했습니다.", Snackbar.LENGTH_SHORT).show();
+            if (resultCode == ActivityCodes.RESULT_ADD_WORD) {
+                String stringWordData = Objects.requireNonNull(data).getStringExtra("wordData");
+                Gson gson = new GsonBuilder().create();
+                WordData wordData = gson.fromJson(stringWordData, WordData.class);
+                addWord(wordData, background);
             }
         }
+    }
+
+
+    // AddWordsActivity will call this function
+    public void addWord(final WordData data, final LinearLayout background) {
+        db = FirebaseFirestore.getInstance();
+        reference = db.collection("words");
+
+        reference.document()
+                .set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Word successfully added. word=" + data.word);
+                        Snackbar.make(background, R.string.result_add_word, Snackbar.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error adding word", e);
+                        Snackbar.make(background, R.string.result_failed_add_word, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     // DeleteWordDialog will call this function

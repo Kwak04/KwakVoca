@@ -1,23 +1,21 @@
 package com.tronix.kwakvoca;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class AddWordsActivity extends AppCompatActivity {
 
@@ -32,6 +30,8 @@ public class AddWordsActivity extends AppCompatActivity {
     WordData wordData;
 
     FirebaseUser currentUser;
+
+    LinearLayout mainActivityBackground;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class AddWordsActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                // Prevent from adding data with no word
+                // Prevent from adding document with no word data
                 boolean isTyped = false;
                 boolean isWordBlank = word.getText().toString().equals("");
                 boolean isMeaningBlank = meaning.getText().toString().equals("");
@@ -75,25 +75,18 @@ public class AddWordsActivity extends AppCompatActivity {
                 wordData.uid = currentUser.getUid();
 
                 if (isTyped) {
-                    reference.document().set(wordData)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d(TAG, "Adding words completed.");
-                                    setResult(ActivityCodes.RESULT_ADDED_WORD);
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Adding words failed", e);
-                                    setResult(ActivityCodes.RESULT_FAILED_ADDING_WORD);
-                                    finish();
-                                }
-                            });
+                    Intent wordDataIntent = new Intent();
+                    Gson gson = new GsonBuilder().create();
+                    String stringWordData = gson.toJson(wordData, WordData.class);
+                    wordDataIntent.putExtra("wordData", stringWordData);
+                    setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
+                    finish();
                 }
             }
         });
+    }
+
+    public void setMainActivityBackground(LinearLayout background) {
+        mainActivityBackground = background;
     }
 }
