@@ -29,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                                 WordData wordData = new WordData();
                                 wordData.word = doc.getString("word");
                                 wordData.meaning = doc.getString("meaning");
+                                wordData.user = doc.getString("user");
+                                wordData.group = doc.getString("group");
+                                wordData.uid = doc.getString("uid");
                                 wordData.documentId = doc.getId();
 
                                 wordDataList.add(wordData);
@@ -129,24 +133,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // DeleteWordDialog will call this function
-    public void deleteWord(String documentId, final LinearLayout background) {
-        Log.d(TAG, "deleteWord: document id=" + documentId);
+    public void deleteWord(final WordData data, final LinearLayout background) {
+        Log.d(TAG, "deleteWord: document id=" + data.documentId);
 
         db = FirebaseFirestore.getInstance();
         reference = db.collection("words");
 
-        reference.document(documentId)
+        reference.document(data.documentId)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Snackbar.make(background, R.string.result_delete_word, Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(background, R.string.result_delete_word, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.action_restore_word, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Log.d(TAG, "Snackbar: Restore button clicked");
+                                        restoreWord(data, background);
+                                    }
+                                })
+                                .show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting word document", e);
+                    }
+                });
+    }
+
+    public void restoreWord(WordData data, final LinearLayout background) {
+        db = FirebaseFirestore.getInstance();
+        reference = db.collection("words");
+
+        reference.document(data.documentId)
+                .set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Snackbar.make(background, R.string.result_restore_word, Snackbar.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error restoring word document", e);
                     }
                 });
     }

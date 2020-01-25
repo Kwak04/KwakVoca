@@ -16,16 +16,14 @@ class DeleteWordDialog {
 
     private Context applicationContext;
     private LinearLayout background;
-    private String word;
-    private String documentId;
+    private WordData data;
 
     private final String TAG = "DeleteWordDialog";
 
-    DeleteWordDialog(Context applicationContext, LinearLayout background, String word, String documentId) {
+    DeleteWordDialog(Context applicationContext, LinearLayout background, WordData data) {
         this.applicationContext = applicationContext;
         this.background = background;
-        this.word = word;
-        this.documentId = documentId;
+        this.data = data;
     }
 
     void show() {
@@ -38,7 +36,7 @@ class DeleteWordDialog {
 
         // Set dialog title
         TextView wordView = dialog.findViewById(R.id.tv_word);
-        wordView.setText(word);
+        wordView.setText(data.word);
 
         // Buttons
         TextView cancel = dialog.findViewById(R.id.btn_cancel);
@@ -57,9 +55,9 @@ class DeleteWordDialog {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();  // First dismiss the dialog
-                Log.d(TAG, "onDeleteClick: word=" + word + " documentId=" + documentId);
+                Log.d(TAG, "onDeleteClick: word=" + data.word + " documentId=" + data.documentId);
                 MainActivity mainActivity = new MainActivity();
-                mainActivity.deleteWord(documentId, background);
+                mainActivity.deleteWord(data, background);
             }
         });
     }
