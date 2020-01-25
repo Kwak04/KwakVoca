@@ -19,8 +19,6 @@ import com.google.gson.GsonBuilder;
 
 public class AddWordsActivity extends AppCompatActivity {
 
-    final String TAG = "AddWordsActivity";
-
     LinearLayout background;
     ImageButton done;
     EditText word, meaning;
@@ -30,8 +28,6 @@ public class AddWordsActivity extends AppCompatActivity {
     WordData wordData;
 
     FirebaseUser currentUser;
-
-    LinearLayout mainActivityBackground;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -59,15 +55,16 @@ public class AddWordsActivity extends AppCompatActivity {
                 boolean isWordBlank = word.getText().toString().equals("");
                 boolean isMeaningBlank = meaning.getText().toString().equals("");
                 if (isWordBlank && isMeaningBlank) {
-                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_word_and_meaning), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(background, R.string.error_type_word_and_meaning, Snackbar.LENGTH_LONG).show();
                 } else if (isWordBlank) {
-                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_word), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(background, R.string.error_type_word, Snackbar.LENGTH_LONG).show();
                 } else if (isMeaningBlank) {
-                    Snackbar.make(background, getApplicationContext().getString(R.string.error_type_meaning), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(background, R.string.error_type_meaning, Snackbar.LENGTH_LONG).show();
                 } else {  // Word and meaning are typed
                     isTyped = true;
                 }
 
+                // Adding word information to data
                 wordData.word = word.getText().toString();
                 wordData.meaning = meaning.getText().toString();
                 wordData.user = currentUser.getEmail();
@@ -75,18 +72,21 @@ public class AddWordsActivity extends AppCompatActivity {
                 wordData.uid = currentUser.getUid();
 
                 if (isTyped) {
-                    Intent wordDataIntent = new Intent();
-                    Gson gson = new GsonBuilder().create();
-                    String stringWordData = gson.toJson(wordData, WordData.class);
-                    wordDataIntent.putExtra("wordData", stringWordData);
-                    setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
-                    finish();
+                    finishActivityWithData();
                 }
             }
         });
     }
 
-    public void setMainActivityBackground(LinearLayout background) {
-        mainActivityBackground = background;
+    public void finishActivityWithData() {
+        Intent wordDataIntent = new Intent();
+        Gson gson = new GsonBuilder().create();
+
+        // Convert WordData to Json String
+        String stringWordData = gson.toJson(wordData, WordData.class);
+
+        wordDataIntent.putExtra("wordData", stringWordData);
+        setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
+        finish();
     }
 }

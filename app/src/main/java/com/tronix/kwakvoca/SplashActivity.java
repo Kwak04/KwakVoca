@@ -1,11 +1,11 @@
 package com.tronix.kwakvoca;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
         Handler hd = new Handler();
-        hd.postDelayed(new SplashHandler(), 1000);
+        hd.postDelayed(new SplashHandler(), 1000);  // Splash screen is showed for a second.
     }
 
     private class SplashHandler implements Runnable {

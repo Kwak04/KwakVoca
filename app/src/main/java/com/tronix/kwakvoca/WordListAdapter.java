@@ -38,11 +38,11 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull WordListAdapter.ViewHolder holder, int position) {
-        final String word = wordDataList.get(position).word;
-        final String meaning = wordDataList.get(position).meaning;
-        final String documentId = wordDataList.get(position).documentId;
-
         final WordData wordData = wordDataList.get(position);
+
+        final String word = wordData.word;
+        final String meaning = wordData.meaning;
+        final String documentId = wordData.documentId;
 
         holder.word.setText(word);
         holder.meaning.setText(meaning);
@@ -51,7 +51,6 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             @Override
             public boolean onLongClick(View v) {
                 Log.d(TAG, "onLongClick: clicked item=" + word + "  document id=" + documentId);
-                Log.d(TAG, "onLongClick: wordData.word=" + wordData.word);
 
                 DeleteWordDialog deleteWordDialog = new DeleteWordDialog(applicationContext, background, wordData);
                 deleteWordDialog.show();

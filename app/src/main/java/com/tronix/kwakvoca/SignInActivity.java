@@ -1,14 +1,14 @@
 package com.tronix.kwakvoca;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -64,11 +64,10 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    // Google sign in Intent result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN) {  // Google sign in Intent result
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
@@ -83,7 +82,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(background, R.string.error_login, Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -101,16 +100,16 @@ public class SignInActivity extends AppCompatActivity {
                             updateUI(currentUser);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(background, R.string.error_login, Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });
     }
 
     private void updateUI(FirebaseUser currentUser) {
-        if (currentUser == null) {
-            Snackbar.make(background, "로그인에 실패하였습니다.", Snackbar.LENGTH_LONG).show();
-        } else {
+        if (currentUser == null) {  // if signing in was canceled or failed
+            Snackbar.make(background, R.string.error_login, Snackbar.LENGTH_LONG).show();
+        } else {  // if signing in was successful, move to MainActivity
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();

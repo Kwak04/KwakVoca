@@ -114,9 +114,6 @@ public class MainActivity extends AppCompatActivity {
         addWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Send background to show Snackbar
-                AddWordsActivity addWordsActivity = new AddWordsActivity();
-                addWordsActivity.setMainActivityBackground(background);
                 Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
                 startActivityForResult(intent, ActivityCodes.REQUEST_ADD_WORD);
             }
@@ -131,7 +128,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == ActivityCodes.RESULT_ADD_WORD) {
                 String stringWordData = Objects.requireNonNull(data).getStringExtra("wordData");
                 Gson gson = new GsonBuilder().create();
+
+                // Put String back to WordData
                 WordData wordData = gson.fromJson(stringWordData, WordData.class);
+
                 addWord(wordData, background);
             }
         }
@@ -140,8 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     // AddWordsActivity will call this function
     public void addWord(final WordData data, final LinearLayout background) {
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("words");
+        reference = FirebaseFirestore.getInstance().collection("words");
 
         reference.document()
                 .set(data)
@@ -149,14 +148,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "Word successfully added. word=" + data.word);
-                        Snackbar.make(background, R.string.result_add_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background, R.string.result_main_added_word, Snackbar.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "Error adding word", e);
-                        Snackbar.make(background, R.string.result_failed_add_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background, R.string.error_main_adding_word, Snackbar.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -165,16 +164,15 @@ public class MainActivity extends AppCompatActivity {
     public void deleteWord(final WordData data, final LinearLayout background) {
         Log.d(TAG, "deleteWord: document id=" + data.documentId);
 
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("words");
+        reference = FirebaseFirestore.getInstance().collection("words");
 
         reference.document(data.documentId)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Snackbar.make(background, R.string.result_delete_word, Snackbar.LENGTH_LONG)
-                                .setAction(R.string.action_restore_word, new View.OnClickListener() {
+                        Snackbar.make(background, R.string.result_main_deleted_word, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.action_main_restore_word, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         Log.d(TAG, "Snackbar: Restore button clicked");
@@ -193,15 +191,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void restoreWord(WordData data, final LinearLayout background) {
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("words");
+        reference = FirebaseFirestore.getInstance().collection("words");
 
         reference.document(data.documentId)
                 .set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Snackbar.make(background, R.string.result_restore_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background, R.string.result_main_restored_word, Snackbar.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
