@@ -34,7 +34,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
