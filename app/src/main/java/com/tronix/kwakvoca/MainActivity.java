@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
                         if (snapshot != null) {
                             for (QueryDocumentSnapshot doc : snapshot) {
-                                Log.d(TAG, "word: " + doc.getString("word") + "  meaning: " + doc.getString("meaning"));
 
                                 WordData wordData = new WordData();
                                 wordData.word = doc.getString("word");

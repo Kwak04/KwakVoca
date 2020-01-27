@@ -3,6 +3,7 @@ package com.tronix.kwakvoca;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -44,37 +45,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String title = remoteMessage.getData().get("title");
         String message = remoteMessage.getData().get("message");
 
+        String channelId = "version";
+        String channelTitle = "New version";
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.ic_bookmark_border_list)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String id = "new-version";
-            String name = "새로운 버전";
+            // Make notification channel
+            NotificationChannel channel = new NotificationChannel(channelId, channelTitle,
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("새 버전이 있을 때마다 알려줍니다.");
+            channel.enableLights(true);
+            channel.setLightColor(Color.GREEN);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 100, 200});
+            channel.setName("새 버전");
+            channel.setShowBadge(true);
 
-            makeNotificationChannel(id, name);
-
-            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, id)
-                    .setSmallIcon(R.drawable.checkbox_bookmark)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setChannelId(id)
-                    .setAutoCancel(true)
-                    .setSound(defaultSoundUri);
-
-            notifyMessage(notificationBuilder);
+            Objects.requireNonNull(notificationManager).createNotificationChannel(channel);
         }
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void makeNotificationChannel(String channelId, String channelName) {
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
-        channel.setDescription("새로운 버전 알림");
-        channel.enableLights(true);
-        channel.enableVibration(true);
-        Objects.requireNonNull(manager).createNotificationChannel(channel);
-    }
-
-    private void notifyMessage(NotificationCompat.Builder notificationBuilder) {
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        Objects.requireNonNull(manager).notify(0, notificationBuilder.build());
+        Objects.requireNonNull(notificationManager).notify(0, notificationBuilder.build());
     }
 }
