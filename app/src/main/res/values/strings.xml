@@ -6,6 +6,8 @@
     <!-- Sample strings -->
     <string name="sample_word">apple</string>
     <string name="sample_meaning">1. 사과\n2. 바나나\n3. 오렌지</string>
+    <string name="sample_new_version">v0.2.3</string>
+    <string name="sample_current_version">v0.2.2</string>
 
     <!-- Actions -->
     <string name="action_cancel">취소</string>
@@ -42,5 +44,6 @@
     <!-- activity_update -->
     <string name="title_update">업데이트 확인</string>
     <string name="text_update_new_version">최신 버전</string>
-    <string name="text_update_now_version">현재 버전</string>
+    <string name="text_update_current_version">현재 버전</string>
+    <string name="action_update">업데이트하기</string>
 </resources>

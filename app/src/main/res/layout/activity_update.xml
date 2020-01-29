@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,38 +22,78 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/update_layout_background"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp">
+            android:baselineAligned="false">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/nanum_square_round_bold"
-                android:gravity="center"
-                android:text="@string/text_update_new_version"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp" />
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_round_bold"
+                    android:gravity="center"
+                    android:text="@string/text_update_new_version"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:text="@string/sample_new_version"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="50sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/nanum_square_round_bold"
-                android:gravity="center"
-                android:text="@string/text_update_now_version"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_round_bold"
+                    android:gravity="center"
+                    android:text="@string/text_update_current_version"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:text="@string/sample_current_version"
+                    android:textColor="#FF3636"
+                    android:textSize="50sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_round_rectangle"
+            android:fontFamily="@font/nanum_square_round_extra_bold"
+            android:text="@string/action_update"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

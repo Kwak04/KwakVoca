@@ -1,8 +1,8 @@
 package com.tronix.kwakvoca;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -10,5 +10,7 @@ public class UpdateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
+
+        getWindow().setStatusBarColor(getColor(R.color.colorBackground));
     }
 }
