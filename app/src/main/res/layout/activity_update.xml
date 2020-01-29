@@ -20,81 +20,139 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/update_layout_background"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="@drawable/update_layout_background"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_square_round_bold"
-                    android:gravity="center"
-                    android:text="@string/text_update_new_version"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
+                    android:baselineAligned="false">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_round_bold"
+                            android:gravity="center"
+                            android:text="@string/text_update_new_version"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/text_new_version"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/nanum_square_round_extra_bold"
+                            android:text="@string/sample_new_version"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="50sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_round_bold"
+                            android:gravity="center"
+                            android:text="@string/text_update_current_version"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/text_current_version"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/nanum_square_round_extra_bold"
+                            android:text="@string/sample_current_version"
+                            android:textColor="#FF3636"
+                            android:textSize="50sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_round_rectangle"
                     android:fontFamily="@font/nanum_square_round_extra_bold"
-                    android:text="@string/sample_new_version"
+                    android:text="@string/action_update"
                     android:textColor="@color/colorWhite"
-                    android:textSize="50sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/text_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/nanum_square_round_bold"
-                    android:gravity="center"
-                    android:text="@string/text_update_current_version"
+                    android:text="@string/sample_update_description"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text_improvements"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/nanum_square_round_extra_bold"
-                    android:text="@string/sample_current_version"
-                    android:textColor="#FF3636"
-                    android:textSize="50sp" />
+                    android:fontFamily="@font/nanum_square_round_bold"
+                    android:lineSpacingExtra="5dp"
+                    android:text="@string/sample_update_improvements"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/text_update_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nanum_square_round_bold"
+                    android:gravity="end"
+                    android:text="@string/sample_update_date"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_round_rectangle"
-            android:fontFamily="@font/nanum_square_round_extra_bold"
-            android:text="@string/action_update"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
