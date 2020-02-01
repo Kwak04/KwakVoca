@@ -6,7 +6,7 @@ class VersionData {
     String version;
     int versionInt;
     String date;
-    List<String> features;
+    List<String> improvements;
 
     public String getVersion() {
         return version;
@@ -20,7 +20,7 @@ class VersionData {
         return date;
     }
 
-    public List<String> getFeatures() {
-        return features;
+    public List<String> getImprovements() {
+        return improvements;
     }
 }

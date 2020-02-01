@@ -17,12 +17,15 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.List;
+
 public class UpdateActivity extends AppCompatActivity {
 
     final String UPDATE_URL = "https://github.com/Kwak04/KwakVoca/releases";
-    Button update;
     final String TAG = "UpdateActivity";
-    TextView newVersion, currentVersion;
+
+    TextView newVersion, currentVersion, description, improvements, date;
+    Button update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +35,13 @@ public class UpdateActivity extends AppCompatActivity {
         newVersion = findViewById(R.id.text_new_version);
         currentVersion = findViewById(R.id.text_current_version);
         update = findViewById(R.id.btn_update);
+        description = findViewById(R.id.text_description);
+        improvements = findViewById(R.id.text_improvements);
+        date = findViewById(R.id.text_update_date);
 
         getWindow().setStatusBarColor(getColor(R.color.colorBackground));
 
         checkForUpdates();
-        currentVersion.setText(Versions.CURRENT_VERSION);
 
         // Update button
         update.setOnClickListener(new View.OnClickListener() {
@@ -65,12 +70,44 @@ public class UpdateActivity extends AppCompatActivity {
 
                     if (data != null) {
                         Log.d(TAG, "new version: " + data.version);
-                        newVersion.setText(data.version);
+                        updateUI(data);
                     }
                 } else {
                     Log.d(TAG, "Snapshot: null");
                 }
             }
         });
+    }
+
+    private void updateUI(VersionData newVersionData) {
+
+        // Current & New version
+        currentVersion.setText(Versions.CURRENT_VERSION);
+        newVersion.setText(newVersionData.version);
+
+
+        // Version information
+
+        // New version description
+        String descriptionText =
+                "콱보카 "+ newVersionData.version + "에서 추가된 기능들이에요.";
+        description.setText(descriptionText);
+
+        // Version improvements
+        List<String> improvements = newVersionData.improvements;
+        StringBuilder improvementsText = new StringBuilder();
+        for (int featureNumber = 0; featureNumber < improvements.size(); featureNumber++) {
+            String improvement = improvements.get(featureNumber);
+            improvementsText.append("● ");
+            improvementsText.append(improvement);
+            if (featureNumber != improvements.size() - 1) {  // Doesn't add "\n" in the last line
+                improvementsText.append("\n");
+            }
+        }
+        this.improvements.setText(improvementsText);
+
+        // Release date
+        String dateText = "배포일: " + newVersionData.date;
+        date.setText(dateText);
     }
 }
