@@ -15,6 +15,7 @@
         ● 업데이트 알림 및 확인 기능\n● 다의어 추가 기능
     </string>
     <string name="sample_update_date">배포일: 2020.01.29</string>
+    <string name="sample_no_text">…</string>
 
     <!-- Actions -->
     <string name="action_cancel">취소</string>
@@ -53,4 +54,5 @@
     <string name="text_update_new_version">최신 버전</string>
     <string name="text_update_current_version">현재 버전</string>
     <string name="action_update">업데이트하기</string>
+    <string name="action_see_version_logs">버전 기록 보기</string>
 </resources>

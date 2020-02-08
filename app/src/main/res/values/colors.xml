@@ -11,5 +11,6 @@
     <color name="colorDarkWhite">#ACACAC</color>
     <color name="colorBlack">#000000</color>
     <color name="colorBrightBlack">#1A1A1A</color>
-    <color name="colorRed">#FF0000</color>
+    <color name="colorImportantRed">#FF3636</color>
+    <color name="colorOrange">#FF5722</color>
 </resources>

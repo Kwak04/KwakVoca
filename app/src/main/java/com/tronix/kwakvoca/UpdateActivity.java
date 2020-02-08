@@ -41,6 +41,8 @@ public class UpdateActivity extends AppCompatActivity {
 
         getWindow().setStatusBarColor(getColor(R.color.colorBackground));
 
+        initializeUI();
+
         checkForUpdates();
 
         // Update button
@@ -51,6 +53,18 @@ public class UpdateActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initializeUI() {
+        newVersion.setText(R.string.sample_no_text);
+        currentVersion.setTextColor(getColor(R.color.colorOrange));
+        update.setBackground(getDrawable(R.drawable.button_update_unavailable));
+        update.setText(R.string.action_see_version_logs);
+
+        String descriptionText = "야호! 현재 콱보카의 최신 버전을 사용하고 있어요!";
+        description.setText(descriptionText);
+        improvements.setText(null);
+        date.setText(null);
     }
 
     private void checkForUpdates() {
@@ -86,28 +100,34 @@ public class UpdateActivity extends AppCompatActivity {
         newVersion.setText(newVersionData.version);
 
 
-        // Version information
+        if (Versions.CURRENT_VERSION_CODE < newVersionData.versionInt) {
 
-        // New version description
-        String descriptionText =
-                "콱보카 "+ newVersionData.version + "에서 추가된 기능들이에요.";
-        description.setText(descriptionText);
+            // Set different color and text
+            currentVersion.setTextColor(getColor(R.color.colorImportantRed));
+            update.setBackground(getDrawable(R.drawable.button_update_available));
+            update.setText(R.string.action_update);
 
-        // Version improvements
-        List<String> improvements = newVersionData.improvements;
-        StringBuilder improvementsText = new StringBuilder();
-        for (int featureNumber = 0; featureNumber < improvements.size(); featureNumber++) {
-            String improvement = improvements.get(featureNumber);
-            improvementsText.append("● ");
-            improvementsText.append(improvement);
-            if (featureNumber != improvements.size() - 1) {  // Doesn't add "\n" in the last line
-                improvementsText.append("\n");
+            // New version description
+            String descriptionText =
+                    "콱보카 "+ newVersionData.version + "에서 추가된 기능들이에요.";
+            description.setText(descriptionText);
+
+            // Version improvements
+            List<String> improvements = newVersionData.improvements;
+            StringBuilder improvementsText = new StringBuilder();
+            for (int featureNumber = 0; featureNumber < improvements.size(); featureNumber++) {
+                String improvement = improvements.get(featureNumber);
+                improvementsText.append("● ");
+                improvementsText.append(improvement);
+                if (featureNumber != improvements.size() - 1) {  // Doesn't add "\n" in the last line
+                    improvementsText.append("\n");
+                }
             }
-        }
-        this.improvements.setText(improvementsText);
+            this.improvements.setText(improvementsText);
 
-        // Release date
-        String dateText = "배포일: " + newVersionData.date;
-        date.setText(dateText);
+            // Release date
+            String dateText = "배포일: " + newVersionData.date;
+            date.setText(dateText);
+        }
     }
 }
