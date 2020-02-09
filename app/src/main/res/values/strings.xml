@@ -6,6 +6,16 @@
     <!-- Sample strings -->
     <string name="sample_word">apple</string>
     <string name="sample_meaning">1. 사과\n2. 바나나\n3. 오렌지</string>
+    <string name="sample_new_version">v0.2.3</string>
+    <string name="sample_current_version">v0.2.2</string>
+    <string name="sample_update_description">
+        콱보카 v0.2.3에서 추가된 기능들이에요.
+    </string>
+    <string name="sample_update_improvements">
+        ● 업데이트 알림 및 확인 기능\n● 다의어 추가 기능
+    </string>
+    <string name="sample_update_date">배포일: 2020.01.29</string>
+    <string name="sample_no_text">…</string>
 
     <!-- Actions -->
     <string name="action_cancel">취소</string>
@@ -38,4 +48,11 @@
     <string name="error_type_word">단어를 입력해야 해요.</string>
     <string name="error_type_meaning">단어의 뜻을 입력해야 해요.</string>
     <string name="error_type_word_and_meaning">단어와 단어의 뜻을 입력해야 해요.</string>
+
+    <!-- activity_update -->
+    <string name="title_update">업데이트 확인</string>
+    <string name="text_update_new_version">최신 버전</string>
+    <string name="text_update_current_version">현재 버전</string>
+    <string name="action_update">업데이트하기</string>
+    <string name="action_see_version_logs">버전 기록 보기</string>
 </resources>

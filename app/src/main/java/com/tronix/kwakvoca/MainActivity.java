@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout background;
     RecyclerView wordList;
-    ImageButton addWords;
+    ImageButton addWords, checkForUpdates;
 
     FirebaseAuth auth;
     FirebaseUser currentUser;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         background = findViewById(R.id.layout_background);
         wordList = findViewById(R.id.word_list);
         addWords = findViewById(R.id.btn_add_words);
+        checkForUpdates = findViewById(R.id.btn_settings);
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
@@ -115,6 +116,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
                 startActivityForResult(intent, ActivityCodes.REQUEST_ADD_WORD);
+            }
+        });
+
+        // Button - Check for updates
+        checkForUpdates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UpdateActivity.class);
+                startActivity(intent);
             }
         });
     }
