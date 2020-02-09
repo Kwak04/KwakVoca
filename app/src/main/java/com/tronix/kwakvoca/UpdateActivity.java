@@ -21,8 +21,8 @@ import java.util.List;
 
 public class UpdateActivity extends AppCompatActivity {
 
-    final String UPDATE_URL = "https://github.com/Kwak04/KwakVoca/releases";
     final String TAG = "UpdateActivity";
+    String updateUrl = "https://github.com/Kwak04/KwakVoca/releases";
 
     TextView newVersion, currentVersion, description, improvements, date;
     Button update;
@@ -49,7 +49,7 @@ public class UpdateActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(UPDATE_URL));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
                 startActivity(intent);
             }
         });
@@ -101,6 +101,9 @@ public class UpdateActivity extends AppCompatActivity {
 
 
         if (Versions.CURRENT_VERSION_CODE < newVersionData.versionInt) {
+
+            // Set updateUrl
+            updateUrl = "https://github.com/Kwak04/KwakVoca/releases/tag/" + newVersionData.version;
 
             // Set different color and text
             currentVersion.setTextColor(getColor(R.color.colorImportantRed));
