@@ -2,10 +2,14 @@ package com.tronix.kwakvoca;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,6 +51,21 @@ public class AddWordsActivity extends AppCompatActivity {
         reference = db.collection("words");
         wordData = new WordData();
 
+
+        // When click next button in keyboard
+        meaning.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        meaning.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    Toast.makeText(AddWordsActivity.this, "Next button clicked", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -78,7 +97,7 @@ public class AddWordsActivity extends AppCompatActivity {
         });
     }
 
-    public void finishActivityWithData() {
+    private void finishActivityWithData() {
         Intent wordDataIntent = new Intent();
         Gson gson = new GsonBuilder().create();
 

@@ -21,6 +21,7 @@
     <string name="action_cancel">취소</string>
     <string name="action_delete_world">삭제</string>
     <string name="action_done">완료</string>
+    <string name="action_add">추가</string>
 
     <!-- activity_sign_in -->
     <string name="text_login">로그인</string>
