@@ -19,6 +19,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout background;
     RecyclerView wordList;
-    ImageButton addWords, checkForUpdates;
+    ImageButton addWords, settings;
 
     FirebaseAuth auth;
     FirebaseUser currentUser;
@@ -55,9 +57,11 @@ public class MainActivity extends AppCompatActivity {
         background = findViewById(R.id.layout_background);
         wordList = findViewById(R.id.word_list);
         addWords = findViewById(R.id.btn_add_words);
-        checkForUpdates = findViewById(R.id.btn_settings);
+        settings = findViewById(R.id.btn_settings);
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
+
+        checkForUpdates();
 
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
@@ -120,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Button - Check for updates
-        checkForUpdates.setOnClickListener(new View.OnClickListener() {
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UpdateActivity.class);
@@ -216,5 +220,39 @@ public class MainActivity extends AppCompatActivity {
                         Log.w(TAG, "Error restoring word document", e);
                     }
                 });
+    }
+
+    private void checkForUpdates() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference reference = db.collection("versions").document("new");
+
+        reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Failed to check for updates.", e);
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    VersionData data = snapshot.toObject(VersionData.class);
+
+                    if (data != null) {
+                        Log.d(TAG, "new version: " + data.version);
+                        updateUI(data);
+                    }
+                } else {
+                    Log.d(TAG, "Snapshot: null");
+                }
+            }
+        });
+    }
+
+    private void updateUI(VersionData newVersionData) {
+        if (Versions.CURRENT_VERSION_CODE < newVersionData.versionInt) {
+            settings.setImageResource(R.drawable.ic_settings_new_update);
+        } else {
+            settings.setImageResource(R.drawable.ic_settings_white);
+        }
     }
 }
