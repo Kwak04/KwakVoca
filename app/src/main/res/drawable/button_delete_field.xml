@@ -7,7 +7,7 @@
                     <solid android:color="@color/colorPrimaryDark" />
                 </shape>
             </item>
-            <item android:drawable="@drawable/ic_add_white" />
+            <item android:drawable="@drawable/ic_remove_white" />
         </layer-list>
     </item>
     <item android:state_pressed="true">

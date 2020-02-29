@@ -37,8 +37,7 @@ public class AddWordsActivity extends AppCompatActivity {
     FirebaseUser currentUser;
 
     List<EditText> meanings = new ArrayList<>();
-    List<ImageButton> addFields = new ArrayList<>();
-    int fieldCount = 0;
+    int fieldCount = -1;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -50,16 +49,15 @@ public class AddWordsActivity extends AppCompatActivity {
         done = findViewById(R.id.btn_done);
         word = findViewById(R.id.edit_word);
 
-        getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
-
-        addMeaningField();
-
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         db = FirebaseFirestore.getInstance();
         reference = db.collection("words");
         wordData = new WordData();
 
+        getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
+
+        addMeaningField();  // Add first meaning field
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +83,6 @@ public class AddWordsActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View meaningField = inflater.inflate(R.layout.layout_add_meaning, inputLayout, false);
         EditText meaning = meaningField.findViewById(R.id.edit_meaning);
-        ImageButton addField = meaningField.findViewById(R.id.btn_add_field);
 
         meaning.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         meaning.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -93,24 +90,19 @@ public class AddWordsActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     addMeaningField();
+                    // Move focus to new field
                     return true;
                 }
                 return false;
             }
         });
-
-        addField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addMeaningField();
-            }
-        });
-
-        meanings.add(meaning);
-        addFields.add(addField);
-
         fieldCount += 1;
+        meanings.add(meaning);
         inputLayout.addView(meaningField);
+    }
+
+    public void removeMeaningField(View v) {
+        inputLayout.removeView((View) v.getParent());
     }
 
     private void addWord(List<EditText> meanings) {

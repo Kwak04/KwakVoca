@@ -24,13 +24,14 @@
         android:textSize="20sp" />
 
     <ImageButton
-        android:id="@+id/btn_add_field"
+        android:id="@+id/btn_remove_field"
+        android:onClick="removeMeaningField"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:background="@null"
         android:contentDescription="@string/action_add"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/button_add_meaning" />
+        app:srcCompat="@drawable/button_delete_field" />
 
 </LinearLayout>

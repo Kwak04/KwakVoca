@@ -66,6 +66,12 @@
 
 <!--            <include layout="@layout/layout_add_meaning" />-->
 
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/list_meaning_field"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:scrollbars="vertical" />-->
+
         </LinearLayout>
 
     </ScrollView>
