@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/rounded_rectangle_add_words"
+    android:padding="10dp">
+
+    <EditText
+        android:id="@+id/edit_meaning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="1dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:fontFamily="@font/nanum_square_round_extra_bold"
+        android:hint="@string/hint_add_words_meaning"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorDarkWhite"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/btn_remove_field"
+        android:onClick="removeMeaningField"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:contentDescription="@string/action_add"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/button_delete_field" />
+
+</LinearLayout>
