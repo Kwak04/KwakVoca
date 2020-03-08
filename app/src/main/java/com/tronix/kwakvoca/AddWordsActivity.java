@@ -2,6 +2,7 @@ package com.tronix.kwakvoca;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import java.util.List;
 
 public class AddWordsActivity extends AppCompatActivity {
 
+    final String TAG = "AddWordsActivity";
+
     LinearLayout background, inputLayout;
     ImageButton done;
     EditText word;
@@ -37,7 +40,7 @@ public class AddWordsActivity extends AppCompatActivity {
     FirebaseUser currentUser;
 
     List<EditText> meanings = new ArrayList<>();
-    int fieldCount = -1;
+    int fieldCount = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -90,7 +93,7 @@ public class AddWordsActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     addMeaningField();
-                    // Move focus to new field
+                    // TODO Move focus to new field
                     return true;
                 }
                 return false;
@@ -99,10 +102,21 @@ public class AddWordsActivity extends AppCompatActivity {
         fieldCount += 1;
         meanings.add(meaning);
         inputLayout.addView(meaningField);
+
+        Log.d(TAG, "added a meaning field: fieldCount=" + fieldCount);
     }
 
     public void removeMeaningField(View v) {
-        inputLayout.removeView((View) v.getParent());
+        if (fieldCount > 1) {
+            inputLayout.removeView((View) v.getParent());
+            fieldCount -= 1;
+            EditText meaning = ((View) v.getParent()).findViewById(R.id.edit_meaning);
+            meanings.remove(meaning);
+        } else {
+            Snackbar.make(background, R.string.error_minimum_meaning_field, Snackbar.LENGTH_LONG).show();
+        }
+
+        Log.d(TAG, "removed a meaning field: fieldCount=" + fieldCount);
     }
 
     private void addWord(List<EditText> meanings) {

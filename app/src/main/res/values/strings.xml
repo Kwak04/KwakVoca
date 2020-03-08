@@ -49,6 +49,7 @@
     <string name="error_type_word">단어를 입력해야 해요.</string>
     <string name="error_type_meaning">단어의 뜻을 입력해야 해요.</string>
     <string name="error_type_word_and_meaning">단어와 단어의 뜻을 입력해야 해요.</string>
+    <string name="error_minimum_meaning_field">최소한 하나의 뜻은 입력해야 해요.</string>
 
     <!-- activity_update -->
     <string name="title_update">업데이트 확인</string>
