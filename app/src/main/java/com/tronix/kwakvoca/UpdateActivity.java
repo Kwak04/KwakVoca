@@ -61,7 +61,7 @@ public class UpdateActivity extends AppCompatActivity {
         update.setBackground(getDrawable(R.drawable.button_update_unavailable));
         update.setText(R.string.action_see_version_logs);
 
-        String descriptionText = "야호! 현재 콱보카의 최신 버전을 사용하고 있어요!";
+        String descriptionText = getString(R.string.text_current_version_description);
         description.setText(descriptionText);
         improvements.setText(null);
         date.setText(null);
