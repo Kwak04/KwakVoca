@@ -8,10 +8,8 @@
     <string name="sample_meaning" translatable="false">1. 사과\n2. 바나나\n3. 오렌지</string>
     <string name="sample_new_version" translatable="false">v0.2.3</string>
     <string name="sample_current_version" translatable="false">v0.2.2</string>
-    <string name="sample_update_description">
-        콱보카 v0.2.3에서 추가된 기능들이에요.
-    </string>
-    <string name="sample_update_improvements">● 업데이트 알림 및 확인 기능 ● 다의어 추가 기능</string>
+    <string name="sample_update_description">콱보카 v0.2.3에서 추가된 기능들이에요.</string>
+    <string name="sample_update_improvements">● 앱 버전, 업데이트 확인 기능\n● 업데이트 알림 기능\n●다의어 추가 기능</string>
     <string name="sample_update_date">배포일: 2020.01.29</string>
     <string name="sample_no_text" translatable="false">…</string>
 
@@ -37,7 +35,6 @@
     <string name="error_main_adding_word">단어가 추가되는 중에 문제가 생겼어요.</string>
 
     <!-- delete_word_dialog -->
-    <string name="title_dialog_delete_word">단어 삭제</string>
     <string name="warning_delete_word">단어를 삭제하시겠어요?</string>
 
     <!-- activity_add_words -->

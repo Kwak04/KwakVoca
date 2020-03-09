@@ -1,14 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Sample strings -->
     <string name="sample_update_description">These are the new features which was added in KwakVoca v0.2.3</string>
-    <string name="sample_update_improvements">● 업데이트 알림 및 확인 기능 ● 다의어 추가 기능</string>
+    <string name="sample_update_improvements">● Check for app version and updates\n●Notifications for update\n●Add multisense word</string>
     <string name="sample_update_date">Release date: 2020.01.29</string>
+
+    <!-- Actions -->
     <string name="action_cancel">Cancel</string>
     <string name="action_delete_world">Delete</string>
     <string name="action_done">Done</string>
     <string name="action_add">Add</string>
+
+    <!-- activity_sign_in -->
     <string name="text_login">Sign in</string>
     <string name="error_login">Failed to sign in.</string>
+
+    <!-- activity_main -->
     <string name="text_main_group_name">My Voca</string>
     <string name="action_main_add_words">Add words</string>
     <string name="action_main_show_bookmark">Show bookmark</string>
@@ -18,8 +24,11 @@
     <string name="result_main_deleted_word">The word has been deleted.</string>
     <string name="result_main_restored_word">The word has been restored.</string>
     <string name="error_main_adding_word">There was a problem while the word was being added.</string>
-    <string name="title_dialog_delete_word">Delete word</string>
+
+    <!-- delete_word_dialog -->
     <string name="warning_delete_word">Are you sure you want to delete this word?</string>
+
+    <!-- activity_add_words -->
     <string name="title_add_words">Add words</string>
     <string name="hint_add_words_word">word</string>
     <string name="hint_add_words_meaning">meaning</string>
@@ -27,6 +36,8 @@
     <string name="error_type_meaning">You need to type a meaning of the word.</string>
     <string name="error_type_word_and_meaning">You need to type a word and its meaning.</string>
     <string name="error_minimum_meaning_field">You must enter at least one meaning.</string>
+
+    <!-- activity_update -->
     <string name="title_update">Check for updates</string>
     <string name="text_update_new_version">New version</string>
     <string name="text_update_current_version">Current version</string>
