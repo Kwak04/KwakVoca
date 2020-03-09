@@ -142,7 +142,12 @@ public class UpdateActivity extends AppCompatActivity {
             this.improvements.setText(improvementsText);
 
             // Release date
-            String dateText = "배포일: " + newVersionData.date;
+            String dateText;
+            if (language.equals("en")) {
+                dateText = "Release date: " + newVersionData.date;
+            } else {
+                dateText = "배포일: " + newVersionData.date;
+            }
             date.setText(dateText);
         }
     }
