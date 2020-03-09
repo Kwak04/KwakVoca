@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
+import java.util.Locale;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -61,7 +62,7 @@ public class UpdateActivity extends AppCompatActivity {
         update.setBackground(getDrawable(R.drawable.button_update_unavailable));
         update.setText(R.string.action_see_version_logs);
 
-        String descriptionText = "야호! 현재 콱보카의 최신 버전을 사용하고 있어요!";
+        String descriptionText = getString(R.string.text_current_version_description);
         description.setText(descriptionText);
         improvements.setText(null);
         date.setText(null);
@@ -110,13 +111,25 @@ public class UpdateActivity extends AppCompatActivity {
             update.setBackground(getDrawable(R.drawable.button_update_available));
             update.setText(R.string.action_update);
 
+            String language = Locale.getDefault().getLanguage();
+
             // New version description
-            String descriptionText =
-                    "콱보카 "+ newVersionData.version + "에서 추가된 기능들이에요.";
+            String descriptionText;
+            if (language.equals("en")) {
+                descriptionText =
+                        "These are the features added in KwakVoca " + newVersionData.version;
+            } else {
+                descriptionText = "콱보카 " + newVersionData.version + "에서 추가된 기능들이에요.";
+            }
             description.setText(descriptionText);
 
             // Version improvements
-            List<String> improvements = newVersionData.improvements;
+            List<String> improvements;
+            if (language.equals("en")) {
+                improvements = newVersionData.improvements_en;
+            } else {
+                improvements = newVersionData.improvements;
+            }
             StringBuilder improvementsText = new StringBuilder();
             for (int featureNumber = 0; featureNumber < improvements.size(); featureNumber++) {
                 String improvement = improvements.get(featureNumber);
@@ -129,7 +142,12 @@ public class UpdateActivity extends AppCompatActivity {
             this.improvements.setText(improvementsText);
 
             // Release date
-            String dateText = "배포일: " + newVersionData.date;
+            String dateText;
+            if (language.equals("en")) {
+                dateText = "Release date: " + newVersionData.date;
+            } else {
+                dateText = "배포일: " + newVersionData.date;
+            }
             date.setText(dateText);
         }
     }
