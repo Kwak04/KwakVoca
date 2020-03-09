@@ -3,7 +3,7 @@ package com.tronix.kwakvoca;
 final class Versions {
 
     static final String CURRENT_VERSION = "v0.3";
-    static final int CURRENT_VERSION_CODE = VERSION_CODES.V0_3;
+    static final int CURRENT_VERSION_CODE = 4;
 
     public final static class VERSION_CODES {
         static final int V0_1 = 1;

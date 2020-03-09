@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
+import java.util.Locale;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -111,8 +112,14 @@ public class UpdateActivity extends AppCompatActivity {
             update.setText(R.string.action_update);
 
             // New version description
-            String descriptionText =
-                    "콱보카 "+ newVersionData.version + "에서 추가된 기능들이에요.";
+            String language = Locale.getDefault().getLanguage();
+            String descriptionText;
+            if (language.equals("en")) {
+                descriptionText =
+                        "These are the features added in KwakVoca " + newVersionData.version;
+            } else {
+                descriptionText = "콱보카 " + newVersionData.version + "에서 추가된 기능들이에요.";
+            }
             description.setText(descriptionText);
 
             // Version improvements
