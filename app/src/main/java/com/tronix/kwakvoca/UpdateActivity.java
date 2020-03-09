@@ -111,8 +111,9 @@ public class UpdateActivity extends AppCompatActivity {
             update.setBackground(getDrawable(R.drawable.button_update_available));
             update.setText(R.string.action_update);
 
-            // New version description
             String language = Locale.getDefault().getLanguage();
+
+            // New version description
             String descriptionText;
             if (language.equals("en")) {
                 descriptionText =
@@ -123,7 +124,12 @@ public class UpdateActivity extends AppCompatActivity {
             description.setText(descriptionText);
 
             // Version improvements
-            List<String> improvements = newVersionData.improvements;
+            List<String> improvements;
+            if (language.equals("en")) {
+                improvements = newVersionData.improvements_en;
+            } else {
+                improvements = newVersionData.improvements;
+            }
             StringBuilder improvementsText = new StringBuilder();
             for (int featureNumber = 0; featureNumber < improvements.size(); featureNumber++) {
                 String improvement = improvements.get(featureNumber);
