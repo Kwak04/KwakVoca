@@ -15,7 +15,8 @@
 
     <!-- Actions -->
     <string name="action_cancel">취소</string>
-    <string name="action_delete_world">삭제</string>
+    <string name="action_delete">삭제</string>
+    <string name="action_delete_word">단어 삭제</string>
     <string name="action_done">완료</string>
     <string name="action_add">추가</string>
 

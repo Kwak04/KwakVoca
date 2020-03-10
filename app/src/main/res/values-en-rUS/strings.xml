@@ -6,7 +6,8 @@
 
     <!-- Actions -->
     <string name="action_cancel">Cancel</string>
-    <string name="action_delete_world">Delete</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_delete_word">Delete word</string>
     <string name="action_done">Done</string>
     <string name="action_add">Add</string>
 

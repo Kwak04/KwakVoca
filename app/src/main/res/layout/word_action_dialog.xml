@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dialog_title_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
+
+            <TextView
+                android:id="@+id/tv_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/nanum_square_round_extra_bold"
+                android:maxLines="1"
+                android:text="@string/sample_word"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/dialog_title_text_size" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/btn_delete_word"
+            style="@style/WordActionLastContentLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                style="@style/WordActionContentImageView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_delete_white" />
+
+            <TextView
+                style="@style/WordActionContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_delete_word" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
