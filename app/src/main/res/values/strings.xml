@@ -20,6 +20,7 @@
     <string name="action_done">완료</string>
     <string name="action_add">추가</string>
     <string name="action_copy">복사</string>
+    <string name="action_help">도움말</string>
 
     <!-- activity_sign_in -->
     <string name="text_login">로그인</string>

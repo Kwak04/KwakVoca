@@ -11,6 +11,7 @@
     <string name="action_done">Done</string>
     <string name="action_add">Add</string>
     <string name="action_copy">Copy</string>
+    <string name="action_help">Help</string>
 
     <!-- activity_sign_in -->
     <string name="text_login">Sign in</string>
