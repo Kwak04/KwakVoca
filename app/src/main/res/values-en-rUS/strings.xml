@@ -6,9 +6,11 @@
 
     <!-- Actions -->
     <string name="action_cancel">Cancel</string>
-    <string name="action_delete_world">Delete</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_delete_word">Delete word</string>
     <string name="action_done">Done</string>
     <string name="action_add">Add</string>
+    <string name="action_copy">Copy</string>
 
     <!-- activity_sign_in -->
     <string name="text_login">Sign in</string>
@@ -23,6 +25,7 @@
     <string name="result_main_added_word">The word has been added.</string>
     <string name="result_main_deleted_word">The word has been deleted.</string>
     <string name="result_main_restored_word">The word has been restored.</string>
+    <string name="result_main_copied_word">The word has been copied to the clipboard.</string>
     <string name="error_main_adding_word">There was a problem while the word was being added.</string>
 
     <!-- delete_word_dialog -->

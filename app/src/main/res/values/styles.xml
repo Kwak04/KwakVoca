@@ -19,4 +19,33 @@
         <item name="android:layout_marginEnd">25dp</item>
         <item name="android:layout_marginBottom">30dp</item>
     </style>
+
+    <style name="WordActionContentLinearLayout">
+        <item name="android:background">@drawable/word_action_button</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingLeft">@dimen/dialog_content_margin</item>
+        <item name="android:paddingRight">@dimen/dialog_content_margin</item>
+    </style>
+
+    <style name="WordActionLastContentLinearLayout">
+        <item name="android:background">@drawable/word_action_last_button</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingLeft">@dimen/dialog_content_margin</item>
+        <item name="android:paddingRight">@dimen/dialog_content_margin</item>
+    </style>
+
+    <style name="WordActionContentImageView">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="WordActionContentTextView">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:fontFamily">@font/nanum_square_round_bold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>
