@@ -11,7 +11,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:layout_marginBottom="5dp">
 
         <View
             android:layout_width="match_parent"
@@ -43,6 +44,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/btn_copy_word"
+            style="@style/WordActionContentLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                style="@style/WordActionContentImageView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_copy_white" />
+
+            <TextView
+                style="@style/WordActionContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_copy" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btn_delete_word"

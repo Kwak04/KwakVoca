@@ -1,5 +1,8 @@
 package com.tronix.kwakvoca;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
     CollectionReference reference;
+
+//    ClipboardManager clipboardManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void restoreWord(WordData data, final LinearLayout background) {
+    private void restoreWord(WordData data, final LinearLayout background) {
         reference = FirebaseFirestore.getInstance().collection("words");
 
         reference.document(data.documentId)
@@ -220,6 +225,37 @@ public class MainActivity extends AppCompatActivity {
                         Log.w(TAG, "Error restoring word document", e);
                     }
                 });
+    }
+
+    public void copyWord(Context context, LinearLayout background, WordData data) {
+
+        String meaning;
+
+        if (data.meaning.contains("\n")) {
+            String[] meanings = data.meaning.split("\n");
+            String builderString;
+            String space = "";
+            StringBuilder meaningBuilder = new StringBuilder();
+            for (String string : meanings) {
+                builderString = space + string;
+                meaningBuilder.append(builderString);
+                space = " ";
+            }
+            meaning = meaningBuilder.toString();
+        } else {
+            meaning = data.meaning;
+        }
+
+        String clipText = data.word + ": " + meaning;
+        ClipData clip = ClipData.newPlainText(data.word, clipText);
+        ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        if (manager != null) {
+            manager.setPrimaryClip(clip);
+        } else {
+            Log.d(TAG, "copyWord: ClipboardManager=null");
+        }
+
+        Snackbar.make(background, R.string.result_main_copied_word, Snackbar.LENGTH_SHORT).show();
     }
 
     private void checkForUpdates() {

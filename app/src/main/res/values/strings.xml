@@ -19,6 +19,7 @@
     <string name="action_delete_word">단어 삭제</string>
     <string name="action_done">완료</string>
     <string name="action_add">추가</string>
+    <string name="action_copy">복사</string>
 
     <!-- activity_sign_in -->
     <string name="text_login">로그인</string>
@@ -33,6 +34,7 @@
     <string name="result_main_added_word">단어가 추가되었어요.</string>
     <string name="result_main_deleted_word">단어가 삭제되었어요.</string>
     <string name="result_main_restored_word">단어가 복원되었어요.</string>
+    <string name="result_main_copied_word">단어가 클립보드에 복사되었어요.</string>
     <string name="error_main_adding_word">단어가 추가되는 중에 문제가 생겼어요.</string>
 
     <!-- delete_word_dialog -->

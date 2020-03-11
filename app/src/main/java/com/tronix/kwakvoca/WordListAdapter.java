@@ -51,10 +51,8 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             public boolean onLongClick(View v) {
                 Log.d(TAG, "onLongClick: clicked item=" + word + "  document id=" + documentId);
 
-//                DeleteWordDialog deleteWordDialog = new DeleteWordDialog(applicationContext, background, wordData);
-//                deleteWordDialog.show();
-
-                WordActionDialog wordActionDialog = new WordActionDialog(applicationContext, background, wordData);
+                WordActionDialog wordActionDialog =
+                        new WordActionDialog(applicationContext, background, wordData);
                 wordActionDialog.show();
 
                 return true;
