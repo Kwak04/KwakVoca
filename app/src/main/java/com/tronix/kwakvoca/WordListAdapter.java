@@ -65,7 +65,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         return wordDataList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout background;
         TextView word, meaning;
 
@@ -73,7 +73,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             super(itemView);
 
             background = itemView.findViewById(R.id.layout_item);
-            word = itemView.findViewById(R.id.tv_word);
+            word = itemView.findViewById(R.id.tv_title);
             meaning = itemView.findViewById(R.id.tv_meaning);
         }
     }
