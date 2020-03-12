@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_square_round_bold"
             android:lineSpacingExtra="3dp"
-            android:text="@string/warning_delete_word"
+            android:text="@string/dialog_warning_delete_word"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/dialog_content_text_size" />
 

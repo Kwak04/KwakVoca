@@ -18,6 +18,7 @@
     <string name="action_delete">삭제</string>
     <string name="action_delete_word">단어 삭제</string>
     <string name="action_done">완료</string>
+    <string name="action_ok">확인</string>
     <string name="action_add">추가</string>
     <string name="action_copy">복사</string>
     <string name="action_help">도움말</string>
@@ -39,7 +40,8 @@
     <string name="error_main_adding_word">단어가 추가되는 중에 문제가 생겼어요.</string>
 
     <!-- default_dialog -->
-    <string name="warning_delete_word">단어를 삭제하시겠어요?</string>
+    <string name="dialog_warning_delete_word">단어를 삭제하시겠어요?</string>
+    <string name="dialog_text_help_multisense">단어에 뜻을 2개 이상 추가하려면 뜻 칸에 뜻을 입력한 후 키보드의 다음 버튼을 누르세요.</string>
 
     <!-- activity_add_words -->
     <string name="title_add_words">단어 추가</string>

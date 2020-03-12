@@ -17,7 +17,9 @@ class DefaultDialog {
 
     static final int DEFAULT = 0;
     static final int DELETE_WORD = 1;
+
     private final String TAG = "DefaultDialog";
+
     private DialogContents contents;
     private int requestCode;
     private Context applicationContext;

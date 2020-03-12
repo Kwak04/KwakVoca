@@ -49,14 +49,14 @@ class WordActionDialog {
 
                 DialogContents contents = new DialogContents();
                 contents.title = data.word;
-                contents.text = applicationContext.getString(R.string.warning_delete_word);
+                contents.text = applicationContext.getString(R.string.dialog_warning_delete_word);
                 contents.yes = applicationContext.getString(R.string.action_delete);
                 contents.no = applicationContext.getString(R.string.action_cancel);
                 contents.iconResId = R.drawable.ic_delete_white;
 
-                DefaultDialog defaultDialog = new DefaultDialog(contents, DefaultDialog.DELETE_WORD,
+                DefaultDialog deleteDialog = new DefaultDialog(contents, DefaultDialog.DELETE_WORD,
                         applicationContext, background, data);
-                defaultDialog.show();
+                deleteDialog.show();
             }
         });
 

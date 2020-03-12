@@ -30,7 +30,7 @@ public class AddWordsActivity extends AppCompatActivity {
     final String TAG = "AddWordsActivity";
 
     LinearLayout background, inputLayout;
-    ImageButton done;
+    ImageButton done, help;
     EditText word;
 
     FirebaseFirestore db;
@@ -50,6 +50,7 @@ public class AddWordsActivity extends AppCompatActivity {
         background = findViewById(R.id.layout_background);
         inputLayout = findViewById(R.id.layout_input);
         done = findViewById(R.id.btn_done);
+        help = findViewById(R.id.btn_help);
         word = findViewById(R.id.edit_word);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -66,6 +67,21 @@ public class AddWordsActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 addWord(meanings);
+            }
+        });
+
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogContents contents = new DialogContents();
+                contents.title = getString(R.string.action_help);
+                contents.text = getString(R.string.dialog_text_help_multisense);
+                contents.yes = getString(R.string.action_ok);
+                contents.iconResId = R.drawable.ic_help_white;
+
+                DefaultDialog dialog = new DefaultDialog(contents, DefaultDialog.DEFAULT,
+                        AddWordsActivity.this);
+                dialog.show();
             }
         });
     }

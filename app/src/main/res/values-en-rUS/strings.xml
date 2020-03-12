@@ -9,6 +9,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_delete_word">Delete word</string>
     <string name="action_done">Done</string>
+    <string name="action_ok">OK</string>
     <string name="action_add">Add</string>
     <string name="action_copy">Copy</string>
     <string name="action_help">Help</string>
@@ -30,7 +31,8 @@
     <string name="error_main_adding_word">There was a problem while the word was being added.</string>
 
     <!-- default_dialog -->
-    <string name="warning_delete_word">Are you sure you want to delete this word?</string>
+    <string name="dialog_warning_delete_word">Are you sure you want to delete this word?</string>
+    <string name="dialog_text_help_multisense">To add more than one meaning to a word, enter the meaning in the meaning field and press the next button on the keyboard..</string>
 
     <!-- activity_add_words -->
     <string name="title_add_words">Add words</string>
