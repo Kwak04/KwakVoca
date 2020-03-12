@@ -32,7 +32,7 @@
 
     <!-- default_dialog -->
     <string name="dialog_warning_delete_word">Are you sure you want to delete this word?</string>
-    <string name="dialog_text_help_multisense">To add more than one meaning to a word, enter the meaning in the meaning field and press the next button on the keyboard..</string>
+    <string name="dialog_text_help_multisense">To add more than one meaning to a word, enter the meaning in the meaning field and press the next button on the keyboard.</string>
 
     <!-- activity_add_words -->
     <string name="title_add_words">Add words</string>
