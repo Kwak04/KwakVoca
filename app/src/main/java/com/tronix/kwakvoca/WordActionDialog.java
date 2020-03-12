@@ -34,7 +34,7 @@ class WordActionDialog {
         dialog.show();
 
         // Set dialog's title as a selected word
-        TextView wordView = dialog.findViewById(R.id.tv_word);
+        TextView wordView = dialog.findViewById(R.id.tv_title);
         wordView.setText(data.word);
 
         // Buttons (Actually LinearLayout)
@@ -46,9 +46,17 @@ class WordActionDialog {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                DeleteWordDialog deleteWordDialog =
-                        new DeleteWordDialog(applicationContext, background, data);
-                deleteWordDialog.show();
+
+                DialogContents contents = new DialogContents();
+                contents.title = data.word;
+                contents.text = applicationContext.getString(R.string.warning_delete_word);
+                contents.yes = applicationContext.getString(R.string.action_delete);
+                contents.no = applicationContext.getString(R.string.action_cancel);
+                contents.iconResId = R.drawable.ic_delete_white;
+
+                DefaultDialog defaultDialog = new DefaultDialog(contents, DefaultDialog.DELETE_WORD,
+                        applicationContext, background, data);
+                defaultDialog.show();
             }
         });
 

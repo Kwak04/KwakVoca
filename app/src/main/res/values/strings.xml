@@ -38,7 +38,7 @@
     <string name="result_main_copied_word">단어가 클립보드에 복사되었어요.</string>
     <string name="error_main_adding_word">단어가 추가되는 중에 문제가 생겼어요.</string>
 
-    <!-- delete_word_dialog -->
+    <!-- default_dialog -->
     <string name="warning_delete_word">단어를 삭제하시겠어요?</string>
 
     <!-- activity_add_words -->

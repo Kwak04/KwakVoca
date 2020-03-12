@@ -30,17 +30,17 @@ class DeleteWordDialog {
         // Show dialog
         final Dialog dialog = new Dialog(applicationContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.delete_word_dialog);
+        dialog.setContentView(R.layout.default_dialog);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();  // Show the dialog
 
         // Set dialog's title as a selected word
-        TextView wordView = dialog.findViewById(R.id.tv_word);
+        TextView wordView = dialog.findViewById(R.id.tv_title);
         wordView.setText(data.word);
 
         // Buttons
-        TextView cancel = dialog.findViewById(R.id.btn_cancel);
-        TextView delete = dialog.findViewById(R.id.btn_delete);
+        TextView cancel = dialog.findViewById(R.id.btn_no);
+        TextView delete = dialog.findViewById(R.id.btn_yes);
 
         // Cancel button
         cancel.setOnClickListener(new View.OnClickListener() {
