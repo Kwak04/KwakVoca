@@ -12,6 +12,7 @@
     <string name="action_ok">OK</string>
     <string name="action_add">Add</string>
     <string name="action_copy">Copy</string>
+    <string name="action_edit">Edit</string>
     <string name="action_help">Help</string>
 
     <!-- activity_sign_in -->

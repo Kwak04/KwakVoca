@@ -46,10 +46,32 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/btn_edit"
+            style="@style/WordActionContentLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_dialog_content_height"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                style="@style/WordActionContentImageView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_edit_white" />
+
+            <TextView
+                style="@style/WordActionContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_edit" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/btn_copy_word"
             style="@style/WordActionContentLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/action_dialog_content_height"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
@@ -71,7 +93,7 @@
             android:id="@+id/btn_delete_word"
             style="@style/WordActionLastContentLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
