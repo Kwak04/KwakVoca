@@ -22,6 +22,7 @@
             android:layout_marginEnd="@dimen/dialog_title_margin_horizontal">
 
             <ImageView
+                android:id="@+id/image_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
@@ -31,7 +32,7 @@
                 app:srcCompat="@drawable/ic_delete_white" />
 
             <TextView
-                android:id="@+id/tv_word"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -52,11 +53,12 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_square_round_bold"
             android:lineSpacingExtra="3dp"
-            android:text="@string/warning_delete_word"
+            android:text="@string/dialog_warning_delete_word"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/dialog_content_text_size" />
 
@@ -67,7 +69,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/btn_cancel"
+                android:id="@+id/btn_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -77,7 +79,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/btn_delete"
+                android:id="@+id/btn_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
