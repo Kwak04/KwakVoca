@@ -21,22 +21,25 @@
 
     <!-- activity_main -->
     <string name="text_main_group_name">My Voca</string>
-    <string name="action_main_add_words">Add words</string>
+    <string name="action_main_add_words">Add word</string>
     <string name="action_main_show_bookmark">Show bookmark</string>
     <string name="action_main_go_settings">Go settings</string>
     <string name="action_main_restore_word">Restore</string>
     <string name="result_main_added_word">The word has been added.</string>
+    <string name="result_main_edited_word">The word has been edited.</string>
     <string name="result_main_deleted_word">The word has been deleted.</string>
     <string name="result_main_restored_word">The word has been restored.</string>
     <string name="result_main_copied_word">The word has been copied to the clipboard.</string>
     <string name="error_main_adding_word">There was a problem while the word was being added.</string>
+    <string name="error_main_editing_word">There was a problem while the word was being edited.</string>
 
     <!-- default_dialog -->
     <string name="dialog_warning_delete_word">Are you sure you want to delete this word?</string>
     <string name="dialog_text_help_multisense">To add more than one meaning to a word, enter the meaning in the meaning field and press the next button on the keyboard.</string>
 
     <!-- activity_add_words -->
-    <string name="title_add_words">Add words</string>
+    <string name="title_add_word">Add word</string>
+    <string name="title_edit_word">Edit word</string>
     <string name="hint_add_words_word">word</string>
     <string name="hint_add_words_meaning">meaning</string>
     <string name="error_type_word">You need to type a word.</string>

@@ -1,5 +1,6 @@
 package com.tronix.kwakvoca;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
+                intent.putExtra("mode", AddWordsActivity.MODE_ADD_WORD);
                 startActivityForResult(intent, ActivityCodes.REQUEST_ADD_WORD);
             }
         });
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ActivityCodes.REQUEST_ADD_WORD) {  // AddWordsActivity
+        if (requestCode == ActivityCodes.REQUEST_ADD_WORD) {  // AddWordsActivity - Add word
             if (resultCode == ActivityCodes.RESULT_ADD_WORD) {
                 String stringWordData = Objects.requireNonNull(data).getStringExtra("wordData");
                 Gson gson = new GsonBuilder().create();
@@ -153,10 +155,22 @@ public class MainActivity extends AppCompatActivity {
                 addWord(wordData, background);
             }
         }
+
+        if (requestCode == ActivityCodes.REQUEST_EDIT_WORD) {  // AddWordsActivity - Edit word
+            if (resultCode == ActivityCodes.RESULT_EDIT_WORD) {
+                String stringWordData = Objects.requireNonNull(data).getStringExtra("wordData");
+                Gson gson = new GsonBuilder().create();
+
+                // Put String back to WordData
+                WordData wordData = gson.fromJson(stringWordData, WordData.class);
+
+                editWord(wordData, background);
+            }
+        }
     }
 
 
-    // AddWordsActivity will call this function
+    // MainActivity.onActivityResult will call this function
     public void addWord(final WordData data, final LinearLayout background) {
         reference = FirebaseFirestore.getInstance().collection("words");
 
@@ -166,14 +180,40 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "Word successfully added. word=" + data.word);
-                        Snackbar.make(background, R.string.result_main_added_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background,
+                                R.string.result_main_added_word, Snackbar.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "Error adding word", e);
-                        Snackbar.make(background, R.string.error_main_adding_word, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(background,
+                                R.string.error_main_adding_word, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    // MainActivity.onActivityResult will call this function
+    public void editWord(final WordData data, final LinearLayout background) {
+        reference = FirebaseFirestore.getInstance().collection("words");
+
+        reference.document(data.documentId)
+                .set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Word successfully edited. word=" + data.meaning);
+                        Snackbar.make(background,
+                                R.string.result_main_edited_word, Snackbar.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error editing word", e);
+                        Snackbar.make(background,
+                                R.string.error_main_editing_word, Snackbar.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -248,7 +288,8 @@ public class MainActivity extends AppCompatActivity {
 
         String clipText = data.word + ": " + meaning;
         ClipData clip = ClipData.newPlainText(data.word, clipText);
-        ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager manager =
+                (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         if (manager != null) {
             manager.setPrimaryClip(clip);
         } else {
@@ -256,6 +297,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Snackbar.make(background, R.string.result_main_copied_word, Snackbar.LENGTH_SHORT).show();
+    }
+
+    // WordActionDialog will call this function
+    public void moveToEditWord(WordData wordData, Context applicationContext) {
+        Gson gson = new GsonBuilder().create();
+        String stringWordData = gson.toJson(wordData, WordData.class);
+
+        Intent intent = new Intent(applicationContext, AddWordsActivity.class);
+        intent.putExtra("mode", AddWordsActivity.MODE_EDIT_WORD);
+        intent.putExtra("data", stringWordData);
+        ((Activity) applicationContext)
+                .startActivityForResult(intent, ActivityCodes.REQUEST_EDIT_WORD);
     }
 
     private void checkForUpdates() {
