@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
     CollectionReference reference;
 
-//    ClipboardManager clipboardManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
