@@ -24,18 +24,26 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AddWordsActivity extends AppCompatActivity {
 
+    static final int MODE_ADD_WORD = 1;
+    static final int MODE_EDIT_WORD = 2;
+
+    int mode;
+
     final String TAG = "AddWordsActivity";
 
+    TextView title;
     LinearLayout background, inputLayout;
     ImageButton done, help;
     EditText word;
 
     FirebaseFirestore db;
     CollectionReference reference;
-    WordData wordData;
+
+    String documentId;
 
     FirebaseUser currentUser;
 
@@ -47,6 +55,7 @@ public class AddWordsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_words);
 
+        title = findViewById(R.id.tv_mode_title);
         background = findViewById(R.id.layout_background);
         inputLayout = findViewById(R.id.layout_input);
         done = findViewById(R.id.btn_done);
@@ -57,11 +66,12 @@ public class AddWordsActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         reference = db.collection("words");
-        wordData = new WordData();
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
-        addMeaningField();  // Add first meaning field
+        // Modes
+        mode = Objects.requireNonNull(getIntent().getExtras()).getInt("mode");
+        startByMode(mode);
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +96,41 @@ public class AddWordsActivity extends AppCompatActivity {
         });
     }
 
-    private void finishActivityWithData() {
+    private void startByMode(int mode) {
+        setTitleByMode(mode);
+
+        if (mode == MODE_ADD_WORD) {
+            addMeaningField();  // Add first meaning field
+        } else if (mode == MODE_EDIT_WORD) {
+            String stringWordData =
+                    Objects.requireNonNull(getIntent().getExtras()).getString("data");
+            Gson gson = new GsonBuilder().create();
+            WordData wordData = gson.fromJson(stringWordData, WordData.class);
+
+            showExistingData(wordData);
+        }
+    }
+
+    private void setTitleByMode(int mode) {
+        if (mode == MODE_ADD_WORD) {
+            title.setText(R.string.title_add_word);
+        } else if (mode == MODE_EDIT_WORD) {
+            title.setText(R.string.title_edit_word);
+        }
+    }
+
+    private void showExistingData(WordData data) {
+        word.setText(data.word);
+        documentId = data.documentId;
+
+        String[] meaningStrings = data.meaning.split("\n");
+        for (int i = 0; i < meaningStrings.length; i++) {
+            addMeaningField();
+            meanings.get(i).setText(meaningStrings[i]);  // Fill meaning fields
+        }
+    }
+
+    private void finishActivityWithData(WordData wordData) {
         Intent wordDataIntent = new Intent();
         Gson gson = new GsonBuilder().create();
 
@@ -94,7 +138,12 @@ public class AddWordsActivity extends AppCompatActivity {
         String stringWordData = gson.toJson(wordData, WordData.class);
 
         wordDataIntent.putExtra("wordData", stringWordData);
-        setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
+
+        if (mode == MODE_ADD_WORD) {
+            setResult(ActivityCodes.RESULT_ADD_WORD, wordDataIntent);
+        } else if (mode == MODE_EDIT_WORD) {
+            setResult(ActivityCodes.RESULT_EDIT_WORD, wordDataIntent);
+        }
         finish();
     }
 
@@ -177,14 +226,18 @@ public class AddWordsActivity extends AppCompatActivity {
         }
 
         // Adding word information to data
+        WordData wordData = new WordData();
         wordData.word = word.getText().toString();
         wordData.meaning = meaningData;
         wordData.user = currentUser.getEmail();
         wordData.group = "my group";  // Group feature will be added.
         wordData.uid = currentUser.getUid();
+        if (mode == MODE_EDIT_WORD) {  // Set document id for existing word
+            wordData.documentId = documentId;
+        }
 
         if (isTyped) {
-            finishActivityWithData();
+            finishActivityWithData(wordData);
         }
     }
 }

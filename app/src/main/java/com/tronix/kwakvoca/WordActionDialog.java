@@ -40,6 +40,17 @@ class WordActionDialog {
         // Buttons (Actually LinearLayout)
         LinearLayout deleteWord = dialog.findViewById(R.id.btn_delete_word);
         LinearLayout copyWord = dialog.findViewById(R.id.btn_copy_word);
+        LinearLayout editWord = dialog.findViewById(R.id.btn_edit);
+
+        // Copy word button
+        copyWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                MainActivity mainActivity = new MainActivity();
+                mainActivity.copyWord(applicationContext, background, data);
+            }
+        });
 
         // Delete word button
         deleteWord.setOnClickListener(new View.OnClickListener() {
@@ -60,13 +71,12 @@ class WordActionDialog {
             }
         });
 
-        // Copy word button
-        copyWord.setOnClickListener(new View.OnClickListener() {
+        editWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 MainActivity mainActivity = new MainActivity();
-                mainActivity.copyWord(applicationContext, background, data);
+                mainActivity.moveToEditWord(data, applicationContext);
             }
         });
     }
