@@ -15,10 +15,11 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_mode_title"
             style="@style/TitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_add_words" />
+            android:text="@string/title_add_word" />
 
         <View
             android:layout_width="0dp"
