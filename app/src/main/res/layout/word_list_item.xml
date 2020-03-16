@@ -7,7 +7,9 @@
     android:layout_marginTop="5dp"
     android:layout_marginEnd="30dp"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/word_list_rounded_rectangle"
+    android:background="@drawable/word_list_button"
+    android:clickable="true"
+    android:focusable="true"
     android:orientation="vertical">
 
     <LinearLayout
