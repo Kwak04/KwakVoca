@@ -53,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
     CollectionReference reference;
 
-//    ClipboardManager clipboardManager;
-
     @Override
+    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                 WordData wordData = new WordData();
                                 wordData.word = doc.getString("word");
                                 wordData.meaning = doc.getString("meaning");
+                                wordData.meanings = (List<String>) doc.get("meanings");
                                 wordData.user = doc.getString("user");
                                 wordData.group = doc.getString("group");
                                 wordData.uid = doc.getString("uid");

@@ -1,8 +1,11 @@
 package com.tronix.kwakvoca;
 
+import java.util.List;
+
 public class WordData {
     String word;
-    String meaning;
+    String meaning;  // Deprecated
+    List<String> meanings;
     String user;
     String group;
     String uid;
@@ -14,6 +17,10 @@ public class WordData {
 
     public String getMeaning() {
         return meaning;
+    }
+
+    public List<String> getMeanings() {
+        return meanings;
     }
 
     public String getUser() {
