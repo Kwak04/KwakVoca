@@ -269,24 +269,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void copyWord(Context context, LinearLayout background, WordData data) {
 
-        String meaning;
+        StringBuilder builder = new StringBuilder();
+        String space = " ";
+        String meaningEach;
 
-        if (data.meaning.contains("\n")) {
-            String[] meanings = data.meaning.split("\n");
-            String builderString;
-            String space = "";
-            StringBuilder meaningBuilder = new StringBuilder();
-            for (String string : meanings) {
-                builderString = space + string;
-                meaningBuilder.append(builderString);
-                space = " ";
+        for (int i = 0; i < data.meanings.size(); i++) {
+            if (data.meanings.size() > 1) {
+                meaningEach = space + (i + 1) + ". " + data.meanings.get(i);
+            } else {
+                meaningEach = data.meanings.get(i);
             }
-            meaning = meaningBuilder.toString();
-        } else {
-            meaning = data.meaning;
+            builder.append(meaningEach);
         }
 
-        String clipText = data.word + ": " + meaning;
+        String clipText = data.word + ":" + builder.toString();
         ClipData clip = ClipData.newPlainText(data.word, clipText);
         ClipboardManager manager =
                 (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
