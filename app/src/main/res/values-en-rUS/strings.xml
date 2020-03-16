@@ -54,4 +54,5 @@
     <string name="action_update">Update</string>
     <string name="action_see_version_logs">See version logs</string>
     <string name="text_current_version_description">Yay! You\'re currently using the latest version!</string>
+    <string name="dialog_text_help_update">Press the \'Asset\' button and install an apk file in the website(Github) which is showed by pressing UPDATE button.</string>
 </resources>

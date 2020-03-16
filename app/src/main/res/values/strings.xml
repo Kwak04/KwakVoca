@@ -45,6 +45,7 @@
     <!-- default_dialog -->
     <string name="dialog_warning_delete_word">단어를 삭제하시겠어요?</string>
     <string name="dialog_text_help_multisense">단어에 뜻을 2개 이상 추가하려면 뜻 칸에 뜻을 입력한 후 키보드의 다음 버튼을 누르세요.</string>
+    <string name="dialog_text_help_update">업데이트하기 버튼을 누르고 표시되는 웹사이트(Github)에서 \'Asset\' 버튼을 누르고 apk 파일을 다운로드 후 설치하세요.</string>
 
     <!-- activity_add_words -->
     <string name="title_add_word">단어 추가</string>

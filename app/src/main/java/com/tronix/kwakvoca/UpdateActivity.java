@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     TextView newVersion, currentVersion, description, improvements, date;
     Button update;
+    ImageButton help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class UpdateActivity extends AppCompatActivity {
         newVersion = findViewById(R.id.text_new_version);
         currentVersion = findViewById(R.id.text_current_version);
         update = findViewById(R.id.btn_update);
+        help = findViewById(R.id.btn_help);
         description = findViewById(R.id.text_description);
         improvements = findViewById(R.id.text_improvements);
         date = findViewById(R.id.text_update_date);
@@ -45,6 +48,22 @@ public class UpdateActivity extends AppCompatActivity {
         initializeUI();
 
         checkForUpdates();
+
+        // Help button
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogContents contents = new DialogContents();
+                contents.title = getString(R.string.action_help);
+                contents.text = getString(R.string.dialog_text_help_update);
+                contents.yes = getString(R.string.action_ok);
+                contents.iconResId = R.drawable.ic_help_white;
+
+                DefaultDialog dialog = new DefaultDialog(contents, DefaultDialog.DEFAULT,
+                        UpdateActivity.this);
+                dialog.show();
+            }
+        });
 
         // Update button
         update.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +80,8 @@ public class UpdateActivity extends AppCompatActivity {
         currentVersion.setTextColor(getColor(R.color.colorOrange));
         update.setBackground(getDrawable(R.drawable.button_update_unavailable));
         update.setText(R.string.action_see_version_logs);
+        help.setBackground(null);
+        help.setEnabled(false);
 
         String descriptionText = getString(R.string.text_current_version_description);
         description.setText(descriptionText);
@@ -102,6 +123,10 @@ public class UpdateActivity extends AppCompatActivity {
 
 
         if (Versions.CURRENT_VERSION_CODE < newVersionData.versionInt) {
+
+            // Show help button
+            help.setBackground(getDrawable(R.drawable.button_help));
+            help.setEnabled(true);
 
             // Set updateUrl
             updateUrl = "https://github.com/Kwak04/KwakVoca/releases/tag/" + newVersionData.version;
