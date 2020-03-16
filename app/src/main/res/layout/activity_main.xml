@@ -26,14 +26,14 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/btn_add_words"
+            android:id="@+id/btn_add_word"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:background="@color/colorTransparent"
             android:contentDescription="@string/action_main_add_words"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_add_circle_white" />
+            app:srcCompat="@drawable/button_add_word" />
 
         <ImageButton
             android:id="@+id/btn_bookmarks"
@@ -66,7 +66,7 @@
             android:background="@color/colorTransparent"
             android:contentDescription="@string/action_main_go_settings"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_settings_white" />
+            app:srcCompat="@drawable/button_settings" />
 
     </LinearLayout>
 

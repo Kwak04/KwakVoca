@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         background = findViewById(R.id.layout_background);
         wordList = findViewById(R.id.word_list);
-        addWords = findViewById(R.id.btn_add_words);
+        addWords = findViewById(R.id.btn_add_word);
         settings = findViewById(R.id.btn_settings);
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
@@ -335,9 +335,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(VersionData newVersionData) {
         if (Versions.CURRENT_VERSION_CODE < newVersionData.versionInt) {
-            settings.setImageResource(R.drawable.ic_settings_new_update);
+            settings.setImageResource(R.drawable.button_settings_new_update);
         } else {
-            settings.setImageResource(R.drawable.ic_settings_white);
+            settings.setImageResource(R.drawable.button_settings);
         }
     }
 }
