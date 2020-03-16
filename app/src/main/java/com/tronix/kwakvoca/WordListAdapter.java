@@ -40,11 +40,25 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         final WordData wordData = wordDataList.get(position);
 
         final String word = wordData.word;
-        final String meaning = wordData.meaning;
+        final List<String> meanings = wordData.meanings;
         final String documentId = wordData.documentId;
 
+        StringBuilder builder = new StringBuilder();
+        String space = "";
+        String meaningEach;
+
+        for (int i = 0; i < meanings.size(); i++) {
+            if (meanings.size() > 1) {
+                meaningEach = space + (i + 1) + ". " + meanings.get(i);
+            } else {
+                meaningEach = meanings.get(i);
+            }
+            builder.append(meaningEach);
+            space = "\n";
+        }
+
         holder.word.setText(word);
-        holder.meaning.setText(meaning);
+        holder.meaning.setText(builder.toString());
 
         holder.background.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

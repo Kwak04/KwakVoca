@@ -123,10 +123,11 @@ public class AddWordsActivity extends AppCompatActivity {
         word.setText(data.word);
         documentId = data.documentId;
 
-        String[] meaningStrings = data.meaning.split("\n");
-        for (int i = 0; i < meaningStrings.length; i++) {
+//        String[] meaningStrings = data.meaning.split("\n");
+        for (int i = 0; i < data.meanings.size(); i++) {
             addMeaningField();
-            meanings.get(i).setText(meaningStrings[i]);  // Fill meaning fields
+//            meanings.get(i).setText(meaningStrings[i]);  // Fill meaning fields
+            meanings.get(i).setText(data.meanings.get(i));
         }
     }
 
@@ -185,7 +186,7 @@ public class AddWordsActivity extends AppCompatActivity {
     }
 
     private void addWord(List<EditText> meanings) {
-        String meaningData;
+        List<String> meaningData = new ArrayList<>();
 
         // Prevent from adding document with no word data
         boolean isTyped = false;
@@ -210,25 +211,17 @@ public class AddWordsActivity extends AppCompatActivity {
 
         // Convert multisense meaning to text
         if (meanings.size() > 1) {
-            String space = "";
-            StringBuilder meaningAll = new StringBuilder();
-            String meaningText;
-            int count = 1;
             for (EditText meaning : meanings) {
-                meaningText = space + count + ". " + meaning.getText().toString();
-                meaningAll.append(meaningText);
-                space = "\n";
-                count += 1;
+                meaningData.add(meaning.getText().toString());
             }
-            meaningData = meaningAll.toString();
         } else {
-            meaningData = meanings.get(0).getText().toString();
+            meaningData.add(meanings.get(0).getText().toString());
         }
 
         // Adding word information to data
         WordData wordData = new WordData();
         wordData.word = word.getText().toString();
-        wordData.meaning = meaningData;
+        wordData.meanings = meaningData;
         wordData.user = currentUser.getEmail();
         wordData.group = "my group";  // Group feature will be added.
         wordData.uid = currentUser.getUid();
