@@ -123,10 +123,8 @@ public class AddWordsActivity extends AppCompatActivity {
         word.setText(data.word);
         documentId = data.documentId;
 
-//        String[] meaningStrings = data.meaning.split("\n");
         for (int i = 0; i < data.meanings.size(); i++) {
             addMeaningField();
-//            meanings.get(i).setText(meaningStrings[i]);  // Fill meaning fields
             meanings.get(i).setText(data.meanings.get(i));
         }
     }
