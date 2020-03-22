@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -223,6 +224,7 @@ public class AddWordsActivity extends AppCompatActivity {
         wordData.user = currentUser.getEmail();
         wordData.group = "my group";  // Group feature will be added.
         wordData.uid = currentUser.getUid();
+        wordData.time = Timestamp.now();
         if (mode == MODE_EDIT_WORD) {  // Set document id for existing word
             wordData.documentId = documentId;
         }

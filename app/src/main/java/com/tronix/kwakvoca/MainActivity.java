@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                                 wordData.user = doc.getString("user");
                                 wordData.group = doc.getString("group");
                                 wordData.uid = doc.getString("uid");
+                                wordData.time = doc.getTimestamp("time");
                                 wordData.documentId = doc.getId();
 
                                 wordDataList.add(wordData);
