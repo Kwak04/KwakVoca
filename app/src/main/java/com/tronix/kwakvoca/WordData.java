@@ -1,5 +1,7 @@
 package com.tronix.kwakvoca;
 
+import com.google.firebase.Timestamp;
+
 import java.util.List;
 
 public class WordData {
@@ -9,6 +11,7 @@ public class WordData {
     String user;
     String group;
     String uid;
+    Timestamp time;
     String documentId;
 
     public String getWord() {
@@ -33,5 +36,9 @@ public class WordData {
 
     public String getUid() {
         return uid;
+    }
+
+    public Timestamp getTime() {
+        return time;
     }
 }
