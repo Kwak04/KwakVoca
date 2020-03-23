@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                                 wordData.group = doc.getString("group");
                                 wordData.uid = doc.getString("uid");
                                 wordData.time = doc.getTimestamp("time");
+//                                wordData.isBookmarked = doc.getBoolean("isBookmarked");
                                 wordData.documentId = doc.getId();
 
                                 wordDataList.add(wordData);
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Word successfully edited. word=" + data.meaning);
+                        Log.d(TAG, "Word successfully edited. word=" + data.word);
                         Snackbar.make(background,
                                 R.string.result_main_edited_word, Snackbar.LENGTH_SHORT).show();
                     }
@@ -306,6 +307,28 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("data", stringWordData);
         ((Activity) applicationContext)
                 .startActivityForResult(intent, ActivityCodes.REQUEST_EDIT_WORD);
+    }
+
+    // WordListAdapter will call this function
+    public void bookmarkWord(final WordData wordData) {
+        reference = FirebaseFirestore.getInstance().collection("words");
+        Log.d(TAG, "bookmarkWord: isBookmarked=" + wordData.isBookmarked);
+
+        reference.document(wordData.documentId)
+                .update("isBookmarked", wordData.isBookmarked)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Set isBookmarked=" + wordData.isBookmarked
+                                + " in documentId=" + wordData.documentId);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error setting isBookmarked", e);
+                    }
+                });
     }
 
     private void checkForUpdates() {
