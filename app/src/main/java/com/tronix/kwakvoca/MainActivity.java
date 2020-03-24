@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                                 wordData.group = doc.getString("group");
                                 wordData.uid = doc.getString("uid");
                                 wordData.time = doc.getTimestamp("time");
-//                                wordData.isBookmarked = doc.getBoolean("isBookmarked");
+                                wordData.isBookmarked = doc.getBoolean("isBookmarked");
                                 wordData.documentId = doc.getId();
 
                                 wordDataList.add(wordData);

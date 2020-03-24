@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         String space = "";
         String meaningEach;
 
+        // Show indexes for each meaning
         for (int i = 0; i < meanings.size(); i++) {
             if (meanings.size() > 1) {
                 meaningEach = space + (i + 1) + ". " + meanings.get(i);
@@ -74,14 +76,17 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             }
         });
 
+        // Bookmark Checkbox
         final CheckBox bookmark = holder.bookmark;
-        bookmark.setOnClickListener(new View.OnClickListener() {
+        bookmark.setOnCheckedChangeListener(null);
+        bookmark.setChecked(wordData.isBookmarked);
+        bookmark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Log.d(TAG, "checked=" + bookmark.isChecked() + "  position=" + position);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(TAG, "checked=" + isChecked + "  position=" + position);
 
                 MainActivity mainActivity = new MainActivity();
-                wordData.isBookmarked = bookmark.isChecked();
+                wordData.isBookmarked = isChecked;
                 mainActivity.bookmarkWord(wordData);
             }
         });
