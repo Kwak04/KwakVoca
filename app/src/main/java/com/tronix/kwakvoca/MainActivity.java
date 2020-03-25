@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout background;
     RecyclerView wordList;
     ImageButton addWords, settings;
+    CheckBox showBookmarks;
 
     FirebaseAuth auth;
     FirebaseUser currentUser;
@@ -54,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     CollectionReference reference;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -62,65 +65,25 @@ public class MainActivity extends AppCompatActivity {
         background = findViewById(R.id.layout_background);
         wordList = findViewById(R.id.word_list);
         addWords = findViewById(R.id.btn_add_word);
+        showBookmarks = findViewById(R.id.checkbox_show_bookmarks);
         settings = findViewById(R.id.btn_settings);
+
+        auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
 
         getWindow().setStatusBarColor(getApplicationContext().getColor(R.color.colorBackground));
 
         checkForUpdates();
 
-        auth = FirebaseAuth.getInstance();
-        currentUser = auth.getCurrentUser();
-
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("words");
-
+        showBookmarks.setChecked(false);
 
         // Word list
-
         wordList.setLayoutManager(new LinearLayoutManager(this));
         wordList.setHasFixedSize(true);
+        showWords(showBookmarks.isChecked());
 
-        reference.whereEqualTo("uid", currentUser.getUid())  // Get words from documents where uid is same with user's one
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Failed to get words", e);
-                            Snackbar.make(background, "단어를 불러오지 못했습니다.", Snackbar.LENGTH_LONG);
-                        }
 
-                        List<WordData> wordDataList = new ArrayList<>();
-
-                        if (snapshot != null) {
-                            for (QueryDocumentSnapshot doc : snapshot) {
-
-                                WordData wordData = new WordData();
-                                wordData.word = doc.getString("word");
-                                wordData.meaning = doc.getString("meaning");
-                                wordData.meanings = (List<String>) doc.get("meanings");
-                                wordData.user = doc.getString("user");
-                                wordData.group = doc.getString("group");
-                                wordData.uid = doc.getString("uid");
-                                wordData.time = doc.getTimestamp("time");
-                                wordData.isBookmarked = doc.getBoolean("isBookmarked");
-                                wordData.documentId = doc.getId();
-
-                                wordDataList.add(wordData);
-
-                                // Sort words in abc order
-                                Collections.sort(wordDataList, new Comparator<WordData>() {
-                                    @Override
-                                    public int compare(WordData o1, WordData o2) {
-                                        return Integer.compare(o1.word.compareTo(o2.word), 0);
-                                    }
-                                });
-
-                                wordList.setAdapter(new WordListAdapter(wordDataList, MainActivity.this, background));
-                            }
-                        }
-                    }
-                });
-
+        // Action bar
 
         // Button - Add words
         addWords.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AddWordsActivity.class);
                 intent.putExtra("mode", AddWordsActivity.MODE_ADD_WORD);
                 startActivityForResult(intent, ActivityCodes.REQUEST_ADD_WORD);
+            }
+        });
+
+        // Checkbox
+        showBookmarks.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showWords(isChecked);
             }
         });
 
@@ -171,6 +142,62 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @SuppressWarnings("unchecked")
+    private void showWords(boolean isChecked) {
+        reference = FirebaseFirestore.getInstance().collection("words");
+
+        Query bookmarkQuery = reference;
+        if (isChecked) {  // Set bookmarkQuery
+            bookmarkQuery = reference.whereEqualTo("isBookmarked", true);
+        }
+
+        bookmarkQuery
+                // Get words from documents where uid is same with user's one
+                .whereEqualTo("uid", currentUser.getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshot,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Failed to get words", e);
+                            Snackbar.make(background,
+                                    "단어를 불러오지 못했습니다.", Snackbar.LENGTH_LONG);
+                        }
+
+                        List<WordData> wordDataList = new ArrayList<>();
+
+                        if (snapshot != null) {
+                            for (QueryDocumentSnapshot doc : snapshot) {
+
+                                WordData wordData = new WordData();
+                                wordData.word = doc.getString("word");
+                                wordData.meaning = doc.getString("meaning");
+                                wordData.meanings = (List<String>) doc.get("meanings");
+                                wordData.user = doc.getString("user");
+                                wordData.group = doc.getString("group");
+                                wordData.uid = doc.getString("uid");
+                                wordData.time = doc.getTimestamp("time");
+                                wordData.isBookmarked = doc.getBoolean("isBookmarked");
+                                wordData.documentId = doc.getId();
+
+                                wordDataList.add(wordData);
+
+                                // Sort words in abc order
+                                Collections.sort(wordDataList, new Comparator<WordData>() {
+                                    @Override
+                                    public int compare(WordData o1, WordData o2) {
+                                        return Integer.compare(o1.word.compareTo(o2.word), 0);
+                                    }
+                                });
+
+                                wordList.setAdapter(new WordListAdapter(wordDataList,
+                                        MainActivity.this, background));
+                            }
+                        }
+                    }
+                });
+    }
 
     // MainActivity.onActivityResult will call this function
     public void addWord(final WordData data, final LinearLayout background) {
