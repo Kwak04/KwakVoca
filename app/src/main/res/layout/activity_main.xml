@@ -35,16 +35,15 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/button_add_word" />
 
-        <ImageButton
-            android:id="@+id/btn_bookmarks"
+        <CheckBox
+            android:id="@+id/checkbox_show_bookmarks"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginStart="7dp"
-            android:background="@color/colorTransparent"
-            android:contentDescription="@string/action_main_show_bookmark"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_bookmark_action_bar" />
+            android:background="@null"
+            android:button="@drawable/checkbox_button_bookmark_action_bar" />
+
 
         <ImageButton
             android:id="@+id/btn_exam"

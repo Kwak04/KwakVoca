@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +38,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WordListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WordListAdapter.ViewHolder holder, final int position) {
         final WordData wordData = wordDataList.get(position);
 
         final String word = wordData.word;
@@ -47,6 +49,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         String space = "";
         String meaningEach;
 
+        // Show indexes for each meaning
         for (int i = 0; i < meanings.size(); i++) {
             if (meanings.size() > 1) {
                 meaningEach = space + (i + 1) + ". " + meanings.get(i);
@@ -72,6 +75,21 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
                 return true;
             }
         });
+
+        // Bookmark Checkbox
+        final CheckBox bookmark = holder.bookmark;
+        bookmark.setOnCheckedChangeListener(null);
+        bookmark.setChecked(wordData.isBookmarked);
+        bookmark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(TAG, "checked=" + isChecked + "  position=" + position);
+
+                MainActivity mainActivity = new MainActivity();
+                wordData.isBookmarked = isChecked;
+                mainActivity.bookmarkWord(wordData);
+            }
+        });
     }
 
     @Override
@@ -82,6 +100,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout background;
         TextView word, meaning;
+        CheckBox bookmark;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +108,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             background = itemView.findViewById(R.id.layout_item);
             word = itemView.findViewById(R.id.tv_title);
             meaning = itemView.findViewById(R.id.tv_meaning);
+            bookmark = itemView.findViewById(R.id.cb_bookmark);
         }
     }
 }

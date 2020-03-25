@@ -12,6 +12,7 @@ public class WordData {
     String group;
     String uid;
     Timestamp time;
+    Boolean isBookmarked;
     String documentId;
 
     public String getWord() {
@@ -40,5 +41,9 @@ public class WordData {
 
     public Timestamp getTime() {
         return time;
+    }
+
+    public Boolean isBookmarked() {
+        return isBookmarked;
     }
 }
